@@ -1,10 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-//app.get("/", (req, res) => {});
-
-//router.get("/login", (req, res) => {});
-
 const path = require("path");
 const mysql = require("mysql");
 const mainModulePath = path.dirname(require.main.filename);
