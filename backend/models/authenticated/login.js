@@ -1,12 +1,15 @@
 const express = require("express");
+const app = express();
 const router = express.Router();
 
 //app.get("/", (req, res) => {});
 
 //router.get("/login", (req, res) => {});
 
+const path = require('path');
 const mysql = require("mysql");
-const dbconfig = require("../config/dbinfo.js");
+const mainModulePath = path.dirname(require.main.filename);
+const dbconfig = require(path.resolve(mainModulePath, '../config/dbinfo.js'));
 const connection = mysql.createConnection(dbconfig);
 
 app.post("/login", (req, res) => {

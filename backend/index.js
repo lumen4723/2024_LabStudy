@@ -6,8 +6,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
-const path = require("path");
-
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -21,11 +19,12 @@ app.use(
     })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
-
+const path = require("path");
 const mysql = require("mysql");
-const dbconfig = require("../config/dbinfo.js");
+const dbconfig = require(path.resolve(__dirname, '../config/dbinfo.js'));
 const connection = mysql.createConnection(dbconfig);
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
     const sql = "SELECT * FROM user";
