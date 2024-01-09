@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const router = express.Router();
 
 //app.get("/", (req, res) => {});
@@ -12,7 +11,7 @@ const mainModulePath = path.dirname(require.main.filename);
 const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
-app.post("/login", (req, res) => {
+router.post("/login", (req, res) => {
     if (req.session.user) {
         // already logged in
         const sql = "SELECT * FROM user WHERE id = ? AND pw = ?";
