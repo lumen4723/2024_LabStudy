@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get("/free/:id/comments", (req, res) => {});
+router.get("/free/:id/comments", (req, res) => {
+    
+});
 
 router.post("/free/:id/comments", (req, res) => {});
 
