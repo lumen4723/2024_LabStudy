@@ -18,7 +18,7 @@ router.get("/free", (req, res) => {
 
 router.get("/free/:id", (req, res) => {
     const sql = "SELECT * FROM freeboard WHERE id = ?";
-    const id = [req.body.id];
+    const id = [req.params.id];
     console.log(id);
     connection.query(sql, id, (err, rows) => {
         if (err) throw err;
