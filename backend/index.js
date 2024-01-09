@@ -27,15 +27,10 @@ app.use(
     })
 );
 
+const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-    // const sql = "SELECT * FROM user";
-    // connection.query(sql, (err, rows) => {
-    //     if (err) throw err;
-    //     // console.log("user: ", rows);
-    //     res.send(rows);
-    // });
     res.send("coin_life API");
 });
 
