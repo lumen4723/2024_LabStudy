@@ -6,10 +6,10 @@ const router = express.Router();
 
 //router.get("/login", (req, res) => {});
 
-const path = require('path');
+const path = require("path");
 const mysql = require("mysql");
 const mainModulePath = path.dirname(require.main.filename);
-const dbconfig = require(path.resolve(mainModulePath, '../config/dbinfo.js'));
+const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
 app.post("/login", (req, res) => {
@@ -23,7 +23,7 @@ app.post("/login", (req, res) => {
 
             // session user 정보가 디비에 없으면 로그인 페이지로 이동
             if (rows.length == 0) {
-                res.redirect("/login");
+                res.send({ result: "invaild_session" });
             } else {
                 // session user 정보가 디비에 있으면 메인 페이지로 이동
                 req.session.user = {
@@ -32,11 +32,9 @@ app.post("/login", (req, res) => {
                 };
 
                 res.setHeader("Set-Cookie", ["user=" + req.session.user.id]);
-                res.redirect("/");
+                res.send({ result: "already_login" });
             }
         });
-
-        res.redirect("/");
     } else if (req.body.id && req.body.pw) {
         const sql = "SELECT * FROM user WHERE id = ? AND pw = ?";
         const params = [req.body.id, req.body.pw];
@@ -46,7 +44,7 @@ app.post("/login", (req, res) => {
 
             // request body에 user 정보가 디비에 없으면 로그인 페이지로 이동
             if (rows.length == 0) {
-                res.redirect("/login");
+                res.send({ result: "no_user" });
             } else {
                 // request body에 user 정보가 디비에 있으면 메인 페이지로 이동
                 req.session.user = {
@@ -55,18 +53,18 @@ app.post("/login", (req, res) => {
                 };
 
                 res.setHeader("Set-Cookie", ["user=" + req.body.id]);
-                res.redirect("/");
+                res.send({ result: "login_success" });
             }
         });
     } else {
-        res.redirect("/login");
+        res.send({ result: "invaild_value" });
     }
 });
 
 router.get("/logout", (req, res) => {
     req.session.destroy();
     res.clearCookie("user");
-    res.redirect("/");
+    res.sendStatus(200);
 });
 
 module.exports = router;
