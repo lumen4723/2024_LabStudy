@@ -19,9 +19,17 @@ app.use(
     })
 );
 
+const cors = require("cors");
+app.use(
+    cors({
+        origin: true,
+        credentials: true,
+    })
+);
+
 const path = require("path");
 const mysql = require("mysql");
-const dbconfig = require(path.resolve(__dirname, '../config/dbinfo.js'));
+const dbconfig = require(path.resolve(__dirname, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
 app.use(express.static(path.join(__dirname, "public")));
