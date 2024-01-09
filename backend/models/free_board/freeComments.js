@@ -7,6 +7,26 @@ const mainModulePath = path.dirname(require.main.filename);
 const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
+
+router.post("/free/:id/comments/", (req, res) =>{
+    if (!req.session.user) {
+        res.send({ result: "no_session" });
+    }
+
+    const sql ="INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
+    const params = [req.body.content, req.body.id, req.session.user.id];
+
+    connection.query(sql, params,(err, rows) =>{
+        if(err) throw err;
+        res.send({ result: "freepost_success" })
+    });
+});
+
+
+
+
+
+
 router.get("/free/:id/comments", (req, res) => {
     const sql = "SELECT * FROM freecomment WHERE boardid = ?";
     const id = [req.params.id];
@@ -18,6 +38,9 @@ router.get("/free/:id/comments", (req, res) => {
 });
 
 //const sql = "DELETE FROM freecomment WHERE boardid = ? AND id =?";
+
+
+
 
 router.delete("/free/:id/:cid", (req, res) => {
     if (!req.session.user) {
