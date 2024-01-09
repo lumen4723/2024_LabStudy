@@ -12,8 +12,8 @@ router.post("/free/:id/comments/", (req, res) =>{
     if (!req.session.user) {
         res.send({ result: "no_session" });
     } 
-    if(!req.body.conten||req.body.id|| req.session.user.id){
-        res.send({ result: "value_null" });
+    if(!req.body.conten||!req.body.id||!req.session.user.id){
+        res.send({ result: "invaild_value" });
     }
 
     const sql ="INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
