@@ -17,7 +17,7 @@ router.post("/free/:id/comments/", (req, res) =>{
     }
 
     const sql ="INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
-    const params = [req.body.content, req.body.id, req.session.user.id];
+    const params = [req.body.content, req.params.id, req.session.user.id];
 
 
     connection.query(sql, params,(err, rows) =>{
@@ -25,8 +25,6 @@ router.post("/free/:id/comments/", (req, res) =>{
         res.send({ result: "freepost_success" })
     });
 });
-
-
 
 
 
@@ -51,7 +49,7 @@ router.delete("/free/:id/:cid", (req, res) => {
         res.send({ result: "no_session" });
     }
 
-    const sql = "SELECT * FROM freecomment WHERE userid = ? AND boardid = ?";
+    const sql = "SELECT * FROM freecomment WHERE boardid = ? AND userid = ?";
     const id = [req.params.id, req.session.user.id];
     connection.query(sql, id, (err, rows) => {
         if (rows.length == 0) {
@@ -69,3 +67,4 @@ router.delete("/free/:id/:cid", (req, res) => {
 });
 
 module.exports = router;
+
