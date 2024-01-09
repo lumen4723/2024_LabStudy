@@ -19,7 +19,6 @@ app.use(
     })
 );
 
-
 const cors = require("cors");
 app.use(
     cors({
@@ -27,7 +26,6 @@ app.use(
         credentials: true,
     })
 );
-
 
 const path = require("path");
 const mysql = require("mysql");
@@ -76,8 +74,8 @@ const getQnaBoardRouter = require("./models/qna_borad/qnaBoardGet.js");
 app.use("/", getQnaBoardRouter);
 
 //질문 게시판 삽입 삭제 수정
-const postQnBoardRouter = require("./models/qna_borad/qnaBoardPost.js");
-app.use("/", postQnBoardRouter);
+const postQnaBoardRouter = require("./models/qna_borad/qnaBoardPost.js");
+app.use("/", postQnaBoardRouter);
 
 //질문 게시판
 
