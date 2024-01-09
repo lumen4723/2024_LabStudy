@@ -19,16 +19,28 @@ router.get("/free/:id/comments", (req, res) => {
     });
 });
 
+
+  //const sql = "DELETE FROM freecomment WHERE boardid = ? AND id =?";
+
 router.delete("/free/:id/:cid", (req, res) => {
-    const sql = "DELETE FROM freecomment WHERE boardid = ? AND id =?";
-    const id = [req.params.id, req.params.cid]
+    if(!req.session.user){
+        res.send({ result : "no_session"});
+    }
     
-    connection.query(sql,id, (err, rows) =>{
+    const sql ="SELECT * FROM freecomment WHERE userid =? AND boardid = ?";
+    const id = [req.params.id,req.ssion.user.id];
+    connection.query(sql, id, (err, rows) =>{
+        if (err) throw err;
+        res.send({result : "no_authority" })
+    });
+
+    const sql2 = "DELETE FROM freecomment WHERE boardid = ? AND id =?";
+    const id2 = [req.params.id, req.params.cid]
+    
+    connection.query(sql2,id2, (err, rows) =>{
         if(err) throw err;
-        res.send(rows);
+        res.send({reslt : "freedelete_success"});
     }); 
 });
 
-
-router.delete("/free/:id/:cid", (req, res) => {});
 module.exports = router;

@@ -19,6 +19,7 @@ app.use(
     })
 );
 
+
 const cors = require("cors");
 app.use(
     cors({
@@ -26,6 +27,7 @@ app.use(
         credentials: true,
     })
 );
+
 
 const path = require("path");
 const mysql = require("mysql");
