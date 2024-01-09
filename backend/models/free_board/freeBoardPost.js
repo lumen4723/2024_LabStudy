@@ -12,16 +12,16 @@ router.post("/free", (req, res) => {
         res.send({ result: "no_session" });
     } else if (!req.body.title || !req.body.content) {
         res.send({ result: "invaild_value" });
+    } else {
+        const sql =
+            "INSERT INTO freeboard (title, content, userid) VALUES (?, ?, ?)";
+        const params = [req.body.title, req.body.content, req.session.user.id];
+
+        connection.query(sql, params, (err, rows) => {
+            if (err) throw err;
+            res.send({ result: "freepost_success" });
+        });
     }
-
-    const sql =
-        "INSERT INTO freeboard (title, content, userid) VALUES (?, ?, ?)";
-    const params = [req.body.title, req.body.content, req.session.user.id];
-
-    connection.query(sql, params, (err, rows) => {
-        if (err) throw err;
-        res.send({ result: "freepost_success" });
-    });
 });
 
 router.put("/free/:id", (req, res) => {
@@ -29,27 +29,26 @@ router.put("/free/:id", (req, res) => {
         res.send({ result: "no_session" });
     } else if (!req.body.content) {
         res.send({ result: "invaild_value" });
+    } else {
+        const sql = "SELECT * FROM freeboard WHERE id = ? AND userid = ?";
+        const params = [req.params.id, req.session.user.id];
+
+        connection.query(sql, params, (err, rows) => {
+            if (err) throw err;
+
+            if (rows.length == 0) {
+                res.send({ result: "no_authority" });
+            } else {
+                const sql2 = "UPDATE freeboard SET content = ? WHERE id = ?";
+                const params2 = [req.body.content, req.params.id];
+
+                connection.query(sql2, params2, (err, rows) => {
+                    if (err) throw err;
+                    res.send({ result: "freeput_success" });
+                });
+            }
+        });
     }
-
-    // session.user.id와 freeboard.userid가 다르면 수정 불가
-    const sql = "SELECT * FROM freeboard WHERE id = ? AND userid = ?";
-    const params = [req.params.id, req.session.user.id];
-
-    connection.query(sql, params, (err, rows) => {
-        if (err) throw err;
-
-        if (rows.length == 0) {
-            res.send({ result: "no_authority" });
-        }
-    });
-
-    const sql2 = "UPDATE freeboard SET content = ? WHERE id = ?";
-    const params2 = [req.body.content, req.params.id];
-
-    connection.query(sql2, params2, (err, rows) => {
-        if (err) throw err;
-        res.send({ result: "freeput_success" });
-    });
 });
 
 router.delete("/free/:id", (req, res) => {
@@ -65,16 +64,15 @@ router.delete("/free/:id", (req, res) => {
         if (err) throw err;
         if (rows.length == 0) {
             res.send({ result: "no_authority" });
+        } else {
+            const sql2 = "DELETE FROM freeboard WHERE id = ?";
+            const params2 = [req.params.id];
+
+            connection.query(sql2, params2, (err, rows) => {
+                if (err) throw err;
+                res.send({ result: "freedelete_success" });
+            });
         }
-    });
-
-    // 댓글 삭제
-    const sql2 = "DELETE FROM freeboard WHERE id = ?";
-    const params2 = [req.params.id];
-
-    connection.query(sql2, params2, (err, rows) => {
-        if (err) throw err;
-        res.send({ result: "freedelete_success" });
     });
 });
 
