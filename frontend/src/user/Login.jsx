@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const [id, setId] = useState("");
     const [pw, setPw] = useState("");
-    const [session, setSession] = useState("");
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         const response = await fetch("http://coin.oppspark.net:8088/login", {
@@ -18,9 +18,18 @@ const Login = () => {
                 return res.json();
             })
             .then((data) => {
-                data.result === "login_success"
-                    ? setSession(data.session)
-                    : setSession("");
+                if(data.result === "already_login") {
+                  navigate('/');
+                  console.log(data.result);
+                }
+                else if(data.result === "login_success") {
+                  navigate('/');
+                  console.log(data.result);
+                } 
+                else if(data.result === "no_user") {
+                  alert("id 혹은 pw가 맞지 않습니다.");
+                }
+                
             })
             .catch((error) => {
                 console.error("로그인 요청 중 에러 발생:", error);
@@ -28,18 +37,17 @@ const Login = () => {
     };
 
     const handleLogout = async () => {
-        try {
-            await fetch("http://coin.oppspark.net:8088/login", {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            alert("로그아웃 성공!");
-        } catch (error) {
-            console.error("로그아웃 요청 중 에러 발생:", error);
-        }
+        await fetch("http://coin.oppspark.net:8088/login", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+        .catch((error) => {
+          console.error("로그아웃 요청 중 에러 발생:", error);
+        })
+        alert("로그아웃 성공!");
+        navigate('/');
     };
 
     return (
@@ -68,6 +76,11 @@ const Login = () => {
             <button type="button" onClick={handleLogout}>
                 로그아웃
             </button>
+            <Link to = "/signup">
+              <button type="button">
+                회원가입
+              </button>
+            </Link>
         </div>
     );
 };

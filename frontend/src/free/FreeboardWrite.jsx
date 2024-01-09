@@ -1,26 +1,33 @@
 import "./FreeboardWrite.css";
+import { useNavigate } from 'react-router-dom';
 
 const FreeboardWrite = () => {
-    // 포스트 등록 버튼을 클릭했을 때의 동작을 정의하는 함수
+    const navigate = useNavigate();
     const handleSubmit = async () => {
         const title = document.getElementById('title_txt').value;
-        const contents = document.getElementById('content_txt').value;
+        const content = document.getElementById('content_txt').value;
 
-        const response = await fetch('http://coin.oppspark.net/free/write', {
+        const response = await fetch('http://coin.oppspark.net:8088/free', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, contents }) 
-        });
-
-        if (response.ok) {
-            // 응답이 성공적이면 실행되는 코드
-            alert('포스트가 성공적으로 등록되었습니다.');
-        } else {
-            // 응답이 실패하면 실행되는 코드
-            alert('포스트 등록에 실패했습니다.');
-        }
+            body: JSON.stringify({ title, content }) 
+        }).then((data) => {
+            if(data.result === "invaild_value")
+            {
+                alert("타이틀 또는 내용을 입력하세요.");
+                console.log(data.result);
+            }
+            if(data.result === "freepost_success")
+            {
+                alert("게시글이 업로드 되었습니다.");
+                navigate('/');
+                console.log(data.result);
+            }
+        }).catch((error) => {
+            console.error("게시글 업로드 중 에러 발생:", error);
+        })
     };
 
     return (
@@ -29,11 +36,10 @@ const FreeboardWrite = () => {
                 <input type = 'text' id = 'title_txt' name = 'title' placeholder="제목"/>
             </div>
             <div>
-                <textarea id = 'content_txt' name = 'contents' placeholder="내용을 입력하세요.">
+                <textarea id = 'content_txt' name = 'content' placeholder="내용을 입력하세요.">
                 </textarea>
             </div>
             <div className= "post_submit">
-                {/* 버튼 클릭 시 handleSubmit 함수를 실행하도록 수정 */}
                 <button onClick= {handleSubmit}> 포스트 등록 </button>
             </div>
         </div>
