@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
+
 const path = require("path");
 const mysql = require("mysql");
-const mainModulePath = path.dirname(require.main.filename);
-const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
+const dbconfig = require(path.resolve(__dirname, '../config/dbinfo.js'));
 const connection = mysql.createConnection(dbconfig);
 
 
-router.get("/free", ( res) => {
-    const sql = "SElECT * FROM freeboard";
+router.get("/free", (req, res) => {
+    const sql = "SELECT * FROM freeboard";
     connection.query(sql,(err, rows) =>{
         if(err) throw err;
         
@@ -16,9 +16,7 @@ router.get("/free", ( res) => {
     }); 
 });
 
-
 router.get("/free/:id", (req, res) => {
-
     const sql = "SELECT * FROM freeboard WHERE id = ?";
     const id = [req.body.id];
 
@@ -27,7 +25,5 @@ router.get("/free/:id", (req, res) => {
         res.json(rows);
     });
 });
-
-
 
 module.exports = router;
