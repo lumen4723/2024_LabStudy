@@ -23,8 +23,17 @@ app.use(
 
 app.use(express.static(path.join(__dirname, "public")));
 
+const mysql = require("mysql");
+const dbconfig = require("../config/dbinfo.js");
+const connection = mysql.createConnection(dbconfig);
+
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    const sql = "SELECT * FROM user";
+    connection.query(sql, (err, rows) => {
+        if (err) throw err;
+        // console.log("user: ", rows);
+        res.send(rows);
+    });
 });
 
 /* 계정 인증 */
