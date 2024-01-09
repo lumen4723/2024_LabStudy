@@ -61,7 +61,7 @@ app.post("/login", (req, res) => {
     }
 });
 
-router.get("/logout", (req, res) => {
+router.delete("/logout", (req, res) => {
     req.session.destroy();
     res.clearCookie("user");
     res.sendStatus(200);
