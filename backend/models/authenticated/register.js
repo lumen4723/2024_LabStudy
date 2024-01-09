@@ -2,10 +2,10 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 
-const path = require('path');
+const path = require("path");
 const mysql = require("mysql");
 const mainModulePath = path.dirname(require.main.filename);
-const dbconfig = require(path.resolve(mainModulePath, '../config/dbinfo.js'));
+const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
 router.post("/register", (req, res) => {
@@ -15,10 +15,10 @@ router.post("/register", (req, res) => {
 
         connection.query(sql, params, (err, rows) => {
             if (err) throw err;
-            res.redirect("/login");
+            res.send({ result: "register_success" });
         });
     } else {
-        res.redirect("/register");
+        res.send({ result: "invaild_value" });
     }
 });
 
