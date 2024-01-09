@@ -9,9 +9,8 @@ const connection = mysql.createConnection(dbconfig);
 
 router.get("/free", (req, res) => {
     const sql = "SELECT * FROM freeboard";
-    connection.query(sql, (err, rows) => {
-        if (err) throw err;
 
+    connection.query(sql, (err, rows) => {
         res.send(rows);
     });
 });
@@ -19,10 +18,9 @@ router.get("/free", (req, res) => {
 router.get("/free/:id", (req, res) => {
     const sql = "SELECT * FROM freeboard WHERE id = ?";
     const id = [req.params.id];
-    // console.log(id);
+
     connection.query(sql, id, (err, rows) => {
-        if (err) throw err;
-        res.json(rows);
+        res.send(rows[0]);
     });
 });
 

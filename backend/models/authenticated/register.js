@@ -14,7 +14,21 @@ router.post("/register", (req, res) => {
         const params = [req.body.id, req.body.username, req.body.pw];
 
         connection.query(sql, params, (err, rows) => {
-            if (err) throw err;
+            if (err) {
+                switch (err.code) {
+                    case "ER_DUP_ENTRY":
+                        res.send({ result: "already_exist" });
+                        return;
+                    case "ER_DATA_TOO_LONG":
+                        res.send({ result: "data_too_long" });
+                        return;
+                    default:
+                        res.send({ result: "register_fail" });
+                        return;
+                }
+                return;
+            }
+
             res.send({ result: "register_success" });
         });
     } else {
