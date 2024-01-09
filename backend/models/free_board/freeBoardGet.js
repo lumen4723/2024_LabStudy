@@ -3,7 +3,7 @@ const router = express.Router();
 
 
 router.get("/free", ( res) => {
-    const sql = "SEECT * FROM freeboard";
+    const sql = "SElECT * FROM freeboard";
     connection.query(sql,(err, rows) =>{
         if(err) throw err;
         
