@@ -12,7 +12,7 @@ router.post("/free/:id/comments/", (req, res) =>{
     if (!req.session.user) {
         res.send({ result: "no_session" });
     } 
-    if(!req.body.conten||!req.body.id||!req.session.user.id){
+    if(!req.body.content||!req.body.id||!req.session.user.id){
         res.send({ result: "invaild_value" });
     }
 
