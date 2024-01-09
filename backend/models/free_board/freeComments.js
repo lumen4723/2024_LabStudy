@@ -30,8 +30,8 @@ router.delete("/free/:id/:cid", (req, res) => {
     const sql ="SELECT * FROM freecomment WHERE userid =? AND boardid = ?";
     const id = [req.params.id,req.ssion.user.id];
     connection.query(sql, id, (err, rows) =>{
-        if (err) throw err;
-        res.send({result : "no_authority" })
+        if (rows.length == 0) 
+            res.send({result : "no_authority" })
     });
 
     const sql2 = "DELETE FROM freecomment WHERE boardid = ? AND id =?";
