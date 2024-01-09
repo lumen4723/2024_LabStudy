@@ -11,10 +11,14 @@ const connection = mysql.createConnection(dbconfig);
 router.post("/free/:id/comments/", (req, res) =>{
     if (!req.session.user) {
         res.send({ result: "no_session" });
+    } 
+    if(!req.body.conten||req.body.id|| req.session.user.id){
+        res.send({ result: "value_null" });
     }
 
     const sql ="INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
     const params = [req.body.content, req.body.id, req.session.user.id];
+
 
     connection.query(sql, params,(err, rows) =>{
         if(err) throw err;
