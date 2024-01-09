@@ -26,7 +26,7 @@ router.post("/login", (req, res) => {
                     pw: req.session.user.pw,
                 };
 
-                res.setHeader("Set-Cookie", ["user=" + req.session.user.id]);
+                res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
                 res.send({ result: "already_login" });
             }
         });
@@ -47,7 +47,7 @@ router.post("/login", (req, res) => {
                     pw: req.body.pw,
                 };
 
-                res.setHeader("Set-Cookie", ["user=" + req.body.id]);
+                res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
                 res.send({ result: "login_success" });
             }
         });
@@ -58,7 +58,7 @@ router.post("/login", (req, res) => {
 
 router.delete("/logout", (req, res) => {
     req.session.destroy();
-    res.clearCookie("user");
+    res.clearCookie("name");
     res.sendStatus(200);
 });
 
