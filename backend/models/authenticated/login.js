@@ -9,6 +9,3 @@ router.post("/login", (req, res) => {});
 
 router.get("/logout", (req, res) => {});
 
-router.post("/register", (req, res) => {});
-
-module.exports = router;
