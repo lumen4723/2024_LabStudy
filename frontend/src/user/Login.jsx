@@ -18,18 +18,28 @@ const Login = () => {
                 return res.json();
             })
             .then((data) => {
-                if(data.result === "already_login") {
-                  navigate('/');
-                  console.log(data.result);
+                switch(data.result) {
+                    case "already_login":
+                        console.log(data.result);
+                        alert("이미 로그인 하셨습니다.");
+                        break;
+                    case "no_user":
+                        console.log(data.result);
+                        alert("id 혹은 pw가 틀렸습니다.");
+                        break;
+                    case "login_success":
+                        console.log(data.result);
+                        navigate('/');
+                        break;
+                    case "invaild_value":
+                        console.log(data.result);
+                        alert("id 혹은 pw를 입력해 주세요.");
+                        break;
+                    default:
+                        console.log(data.log);
+                        alert("서버에 오류가 생겼습니다. 잠시 후 시도하세요.");
+                        break;
                 }
-                else if(data.result === "login_success") {
-                  navigate('/');
-                  console.log(data.result);
-                } 
-                else if(data.result === "no_user") {
-                  alert("id 혹은 pw가 맞지 않습니다.");
-                }
-                 
             })
             .catch((error) => {
                 console.error("로그인 요청 중 에러 발생:", error);
@@ -41,8 +51,7 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-        })
-        .catch((error) => {
+        }).catch((error) => {
           console.error("로그아웃 요청 중 에러 발생:", error);
         })
         alert("로그아웃 성공!");
