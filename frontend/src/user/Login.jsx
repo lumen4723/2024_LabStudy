@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const [id, setId] = useState("");
@@ -12,13 +12,16 @@ const Login = () => {
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({ id, pw }),
-            })
+        })
             .then((res) => {
+                // 쿠키값 확인 코드
+                console.log(res.headers.get("Set-Cookie"));
                 return res.json();
             })
             .then((data) => {
-                switch(data.result) {
+                switch (data.result) {
                     case "already_login":
                         console.log(data.result);
                         alert("이미 로그인 하셨습니다.");
@@ -29,7 +32,7 @@ const Login = () => {
                         break;
                     case "login_success":
                         console.log(data.result);
-                        navigate('/');
+                        navigate("/");
                         break;
                     case "invaild_value":
                         console.log(data.result);
@@ -52,10 +55,10 @@ const Login = () => {
                 "Content-Type": "application/json",
             },
         }).catch((error) => {
-          console.error("로그아웃 요청 중 에러 발생:", error);
-        })
+            console.error("로그아웃 요청 중 에러 발생:", error);
+        });
         alert("로그아웃 성공!");
-        navigate('/');
+        navigate("/");
     };
 
     return (
@@ -84,10 +87,8 @@ const Login = () => {
             <button type="button" onClick={handleLogout}>
                 로그아웃
             </button>
-            <Link to = "/signup">
-              <button type="button">
-                회원가입
-              </button>
+            <Link to="/signup">
+                <button type="button">회원가입</button>
             </Link>
         </div>
     );
