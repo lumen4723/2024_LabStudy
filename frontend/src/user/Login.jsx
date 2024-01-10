@@ -7,7 +7,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        const response = await fetch("http://localhost:8088/login", {
+        const response = await fetch("http://api.oppspark.net:8088/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -16,7 +16,7 @@ const Login = () => {
             body: JSON.stringify({ id, pw }),
         })
             .then((res) => {
-                // 쿠키값 확인 코드
+                // // 쿠키값 확인 코드
                 console.log(res.headers.get("Set-Cookie"));
                 return res.json();
             })
