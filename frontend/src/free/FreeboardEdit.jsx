@@ -20,10 +20,11 @@ const FreeboardEdit = () => {
             console.log("fetchPost : " + id);
             return res.json();
         }).then((data) => {
-            setTitle(data.title);
-            setContent(data.content);
-            console.log(data.title);
-            console.log(data.content);
+            console.log(data);
+            setTitle(data[0].title);
+            setContent(data[0].content);
+            console.log(data[0].title);
+            console.log(data[0].content);
         }).catch((error) => {
             console.error('게시글 정보를 불러오는 중 에러 발생:', error);
         });
@@ -40,15 +41,15 @@ const FreeboardEdit = () => {
         }
     }, [postid]);
 
-    const handleSubmit = async ( {id} ) => { 
-        const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
+    const handleSubmit = async ( {postid} ) => { 
+        const response = await fetch(`http://api.oppspark.net:8088/free/${postid}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ content }),
         }).then((res) => {
-            console.log("handleSubmit : " + id);
+            console.log("handleSubmit : " + postid);
             return res.json();
         }).then((data) => {
             switch (data.result) {
@@ -86,14 +87,14 @@ const FreeboardEdit = () => {
         });
     };
 
-    const handlDelete = async ( {id} ) => { 
-        const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
+    const handlDelete = async ( {postid} ) => { 
+        const response = await fetch(`http://api.oppspark.net:8088/free/${postid}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
         }).then((res) => {
-            console.log("handDelete : " + id);
+            console.log("handDelete : " + postid);
             return res.json();
         }).then((data) => {
             switch(data.result) {
@@ -131,8 +132,7 @@ const FreeboardEdit = () => {
                     {title}
             </div>
             <div>
-                <textarea id = 'content_txt' name = 'content' onChange={(e) => setContent(e.target.value)}>
-                    {content}
+                <textarea id = 'content_txt' name = 'content' onChange={(e) => setContent(e.target.value)} placeholder={content}>
                 </textarea>
             </div>
             <div className= "post_edit">
