@@ -1,0 +1,61 @@
+header {
+    display: flex;
+    justify-content: space-between; /* 변경된 부분 */
+    align-items: center;
+    background-color: #fafafa;
+    padding: 20px 0 20px 0;
+    margin: 0;
+    width: 100%;
+}
+#HeaderDIV{
+    
+    margin: 1; 
+}
+
+header h1 {
+    margin: 0; 
+    font-size: 40px;
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+    margin-right: 20px; /* 링크들 사이에 간격을 추가합니다 */
+}
+
+header p {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header p a:last-child {
+    margin-left: auto;
+}
+
+
+header ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header li {
+    margin-right: 35px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.list {
+    list-style-type: none;
+    text-align: center;
+    margin: auto;
+}
+
+header hr {
+    margin-top: 0px;
+}
+.sign {
+    margin-left: auto;
+}

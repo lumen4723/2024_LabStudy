@@ -25,10 +25,11 @@ const FreeboardEdit = () => {
                 return res.json();
             })
             .then((data) => {
-                setTitle(data.title);
-                setContent(data.content);
-                console.log(data.title);
-                console.log(data.content);
+                console.log(data);
+                setTitle(data[0].title);
+                setContent(data[0].content);
+                console.log(data[0].title);
+                console.log(data[0].content);
             })
             .catch((error) => {
                 console.error("게시글 정보를 불러오는 중 에러 발생:", error);
@@ -46,17 +47,20 @@ const FreeboardEdit = () => {
         }
     }, [postid]);
 
-    const handleSubmit = async ({ id }) => {
-        const response = await fetch(`http://localhost:8088/free/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({ content }),
-        })
+    const handleSubmit = async ({ postid }) => {
+        const response = await fetch(
+            `http://api.oppspark.net:8088/free/${postid}`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+                body: JSON.stringify({ content }),
+            }
+        )
             .then((res) => {
-                console.log("handleSubmit : " + id);
+                console.log("handleSubmit : " + postid);
                 return res.json();
             })
             .then((data) => {
@@ -67,7 +71,7 @@ const FreeboardEdit = () => {
                         break;
                     case "invaild_value":
                         console.log(data.result);
-                        alert("타이틀 또는 내용을 입력하세요.");
+                        alert("내용을 입력하세요.");
                         break;
                     case "data_too_long":
                         console.log(data.result);
@@ -75,12 +79,16 @@ const FreeboardEdit = () => {
                         break;
                     case "freeput_success":
                         console.log(data.result);
-                        alert("게시글이 작성되었습니다.");
+                        alert("게시글이 수정되었습니다.");
                         navigate("/freeboard");
                         break;
                     case "freeput_fail":
                         console.log(data.result);
-                        alert("게시글 작성에 실패했습니다.");
+                        alert("게시글 수정에 실패했습니다.");
+                        break;
+                    case "no_authority":
+                        console.log(data.result);
+                        alert("게시글 수정 권한이 없습니다.");
                         break;
                     default:
                         console.log(data.result);
@@ -94,16 +102,19 @@ const FreeboardEdit = () => {
             });
     };
 
-    const handlDelete = async ({ id }) => {
-        const response = await fetch(`http://localhost:8088/free/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-        })
+    const handlDelete = async ({ postid }) => {
+        const response = await fetch(
+            `http://api.oppspark.net:8088/free/${postid}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }
+        )
             .then((res) => {
-                console.log("handDelete : " + id);
+                console.log("handDelete : " + postid);
                 return res.json();
             })
             .then((data) => {
@@ -149,9 +160,8 @@ const FreeboardEdit = () => {
                     id="content_txt"
                     name="content"
                     onChange={(e) => setContent(e.target.value)}
-                >
-                    {content}
-                </textarea>
+                    placeholder={content}
+                ></textarea>
             </div>
             <div className="post_edit">
                 <button onClick={handleSubmit}> 포스트 수정 </button>
