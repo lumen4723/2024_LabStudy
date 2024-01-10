@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
     const [id, setId] = useState("");
@@ -49,49 +50,65 @@ const Login = () => {
             });
     };
 
-    const handleLogout = async () => { await fetch("http://api.oppspark.net:8088/login", {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        }).catch((error) => {
+    const handleLogout = async () => {
+        try {
+            const response = await fetch("http://api.oppspark.net:8088/logout", {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+    
+            if (response.ok) {
+                alert("로그아웃 성공!");
+                navigate("/");
+            } else {
+                alert("로그아웃 실패. 다시 시도해주세요.");
+            }
+        } catch (error) {
             console.error("로그아웃 요청 중 에러 발생:", error);
-        });
-        alert("로그아웃 성공!");
-        navigate("/");
+        }
     };
 
     return (
-        <div>
-            <label>
-                ID:
-                <input
-                    type="text"
-                    value={id}
-                    onChange={(e) => setId(e.target.value)}
-                />
+        <div className="container">
+          <h1 className="title">회원 로그인</h1>
+          <div className="form-container">
+            <label className="label">
+              ID:
+              <input
+                type="text"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+                className="input"
+              />
             </label>
-            <br />
-            <label>
-                PW:
-                <input
-                    type="password"
-                    value={pw}
-                    onChange={(e) => setPw(e.target.value)}
-                />
+            <label className="label">
+              PW:
+              <input
+                type="password"
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+                className="input"
+              />
             </label>
-            <br />
-            <button type="button" onClick={handleLogin}>
+            <div className="button-container">
+              <button type="button" onClick={handleLogin} className="button">
                 로그인
-            </button>
-            <button type="button" onClick={handleLogout}>
+              </button>
+              <button type="button" onClick={handleLogout} className="button">
                 로그아웃
-            </button>
-            <Link to="/signup">
-                <button type="button">회원가입</button>
-            </Link>
+              </button>
+            </div>
+            <div className="signup-link-container">
+              <span className="signup-link-text">회원이 아니신가요?</span>
+              <Link to="/signup" className="signup-link">
+                회원가입
+              </Link>
+            </div>
+          </div>
         </div>
-    );
+      );
 };
 
 export default Login;
