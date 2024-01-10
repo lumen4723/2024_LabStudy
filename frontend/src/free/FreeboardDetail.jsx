@@ -12,12 +12,12 @@ const FreeboardDetail = () => {
     const { id: boardid } = useParams();
 
     const getfboard = async ({ id }) => {
-        await fetch(`http://coin.oppspark.net:8088/free/${id}`, {
+        await fetch(`http://api.oppspark.net:8088/free/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
-        })
+            })
             .then((res) => {
                 console.log(id);
                 return res.json();
