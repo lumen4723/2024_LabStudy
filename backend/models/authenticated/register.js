@@ -26,7 +26,6 @@ router.post("/register", (req, res) => {
                         res.send({ result: "register_fail" });
                         return;
                 }
-                return;
             }
 
             res.send({ result: "register_success" });
