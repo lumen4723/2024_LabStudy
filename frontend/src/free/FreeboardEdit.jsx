@@ -58,7 +58,7 @@ const FreeboardEdit = () => {
                     break;
                 case "invaild_value":
                     console.log(data.result);
-                    alert("타이틀 또는 내용을 입력하세요.");
+                    alert("내용을 입력하세요.");
                     break;
                 case "data_too_long":
                     console.log(data.result);
@@ -66,12 +66,16 @@ const FreeboardEdit = () => {
                     break;
                 case "freeput_success":
                     console.log(data.result);
-                    alert("게시글이 작성되었습니다.");
+                    alert("게시글이 수정되었습니다.");
                     navigate('/freeboard');
                     break;
                 case "freeput_fail":
                     console.log(data.result);
-                    alert("게시글 작성에 실패했습니다.");
+                    alert("게시글 수정에 실패했습니다.");
+                    break;
+                case "no_authority":
+                    console.log(data.result);
+                    alert("게시글 수정 권한이 없습니다.");
                     break;
                 default:
                     console.log(data.result);
