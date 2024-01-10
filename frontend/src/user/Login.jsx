@@ -13,7 +13,7 @@ const Login = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ id, pw }),
-        })
+            })
             .then((res) => {
                 return res.json();
             })
@@ -29,15 +29,14 @@ const Login = () => {
                 else if(data.result === "no_user") {
                   alert("id 혹은 pw가 맞지 않습니다.");
                 }
-                
+                 
             })
             .catch((error) => {
                 console.error("로그인 요청 중 에러 발생:", error);
             });
     };
 
-    const handleLogout = async () => {
-        await fetch("http://coin.oppspark.net:8088/login", {
+    const handleLogout = async () => { await fetch("http://coin.oppspark.net:8088/login", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
