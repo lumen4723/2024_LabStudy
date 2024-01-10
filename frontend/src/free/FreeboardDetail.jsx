@@ -4,11 +4,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const FreeboardDetail = () => {
-  const [title, setTitle] = useState("nowloading...");
-  const [content, setContent] = useState("nowloading...");
-  const [author, setAuthor] = useState("nowloading...");
-  const [created, setCreated] = useState("nowloading...");
-  const [view, setView] = useState("nowloading...");
+  const [title, setTitle] = useState();
+  const [content, setContent] = useState();
+  const [author, setAuthor] = useState();
+  const [created, setCreated] = useState();
+  const [view, setView] = useState("setCreated...");
 
   const [titleC, setTitleComment] = useState("nowloading...");
   const [contentC, setContentComment] = useState("nowloading...");
@@ -20,7 +20,7 @@ const FreeboardDetail = () => {
   const { id: boardid } = useParams();
   const [comments, setComments] = useState([]);
 
-  const id = boardid;
+
 
   const getfboard = async ({ id }) => {
     await fetch(`http://api.oppspark.net:8088/free/${id}`, {
@@ -34,16 +34,17 @@ const FreeboardDetail = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
-        setTitle(data.title);
-        setAuthor(data.userid);
-        setCreated(data.created);
-        setView(data.view);
-        setContent(data.content);
+        console.log(data[0]);
+        setTitle(data[0].title);
+        setAuthor(data[0].userid);
+        setCreated(data[0].created);
+        setView(data[0].view);
+        setContent(data[0].content);
       })
       .catch((error) => {
         console.error("게시글 정보를 불러오는 중 에러 발생:", error);
       });
+      
   };
 
   useEffect(() => {
@@ -58,83 +59,41 @@ const FreeboardDetail = () => {
   }, [boardid]);
 
   const getcomment = async ({ id }) => {
-    await fetch(`http://api.oppspark.net:8088/free/${id}/comment`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
+  await fetch(`http://api.oppspark.net:8088/free/${id}/comment`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setComments(data); // 가져온 댓글로 'comments' 상태를 업데이트
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setComments(data); // 가져온 댓글로 'comments' 상태를 업데이트
-      })
-      .catch((error) => {
-        console.error("댓글 정보를 불러오는 중 에러 발생:", error);
-      });
-  };
+    .catch((error) => {
+      console.error("댓글 정보를 불러오는 중 에러 발생:", error);
+    });
+};
 
   const updateComments = (newComments) => {
     setComments(newComments);
   };
 
-  const handleSubmit = async ({ id }) => {
-    const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ content }),
-    })
-      .then((res) => {
-        console.log("handleSubmit : " + id);
-        return res.json();
-      })
-      .then((data) => {
-        switch (data.result) {
-          case "no_session":
-            console.log(data.result);
-            alert("로그인을 하고 작성하세요.");
-            break;
-          case "invaild_value":
-            console.log(data.result);
-            alert("타이틀 또는 내용을 입력하세요.");
-            break;
-          case "data_too_long":
-            console.log(data.result);
-            alert("내용이 너무 깁니다.");
-            break;
-          case "freeput_success":
-            console.log(data.result);
-            alert("게시글이 작성되었습니다.");
-            navigate("/freeboard");
-            break;
-          case "freeput_fail":
-            console.log(data.result);
-            alert("게시글 작성에 실패했습니다.");
-            break;
-          default:
-            console.log(data.result);
-            alert("서버 오류가 있습니다. 잠시 후 다시 작성해 주세요.");
-        }
-      })
-      .catch((error) => {
-        console.error("게시글 수정 중 에러 발생", error);
-      });
-  };
-
   const commentUpload = async ({ id }) => {
-    const response = await fetch(
-      `http://api.oppspark.net:8088/free/${id}/comment`,
+
+    //const content = document.getElementById("comment_txt").value;
+
+    await fetch(
+      `http://api.oppspark.net:8088/free/${boardid}/comment`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ comments }),
+        body: JSON.stringify({ boardid ,comments }),
       })
       .then((res) => {
-        console.log("commentUpload : " + id);
+        console.log("commentUpload : " + JSON.stringify({ boardid , content }));
         return res.json();
       })
       .then((data) => {
@@ -170,16 +129,20 @@ const FreeboardDetail = () => {
       });
   };
 
+
+  const ids = boardid;
   return (
     <div className="freeboarddetail">
       <div>
         <h1>{title}</h1>
+        <hr></hr>
         <p>{content}</p>
+        <hr></hr>
         <p>작성자: {author}</p>
         <p>작성 시간: {created}</p>
         <p>조회수: {view}</p>
 
-        <Link to={`/freeboard/edit/${id}`}>
+        <Link to={`/freeboard/edit/${ids}`}>
           <button type="button" className="post_edit">개시글 수정</button>
         </Link>
       </div>
@@ -190,11 +153,11 @@ const FreeboardDetail = () => {
       <textarea
         id="comment_txt"
         name="comment"
-        onChange={(e) => setContentComment()}
-      >
+        onChange={(e) => setContentComment(e.target.value)}
+      >{content}
       </textarea>
 
-      <div className="comment_edit">
+      <div className="comment_post">
         <button onClick={commentUpload}> 댓글 작성 </button>
       </div>
 
