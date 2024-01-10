@@ -13,7 +13,7 @@ const FreeboardWrite = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ title, content }),
-        })
+             })
             .then((res) => {
                 return res.json();
             })
@@ -42,9 +42,7 @@ const FreeboardWrite = () => {
                         break;
                     default:
                         console.log(data.result);
-                        alert(
-                            "서버 오류가 있습니다. 잠시 후 다시 작성해 주세요."
-                        );
+                        alert("서버 오류가 있습니다. 잠시 후 다시 작성해 주세요.");
                 }
             })
             .catch((error) => {
