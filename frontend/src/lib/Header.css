@@ -1,0 +1,53 @@
+header {
+    /*display: flex; *//* 이 부분이 추가되었습니다 */
+    align-items: center; /* 이 부분은 수직 정렬을 위한 속성입니다 */
+    background-color: #f5f5f5;
+    padding: 20px;
+    display: flex;
+    
+}
+
+header h1 {
+    margin: 0; 
+    font-size: 40px;
+}
+
+header a {
+    color: black;
+    text-decoration: none;
+    margin-right: 20px; /* 링크들 사이에 간격을 추가합니다 */
+}
+
+header p {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+header p a:last-child {
+    margin-left: auto;
+}
+
+
+header ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header li {
+    margin-right: 35px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.list {
+    list-style-type: none;
+    text-align: center;
+    margin: auto;
+}
+
+header hr {
+    margin-top: 0px;
+}
