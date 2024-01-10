@@ -8,7 +8,7 @@ const Login = () => {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        const response = await fetch("http://localhost:8088/login", {
+        const response = await fetch("http://api.oppspark.net:8088/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
