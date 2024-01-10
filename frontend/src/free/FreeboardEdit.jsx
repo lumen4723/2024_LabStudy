@@ -41,23 +41,7 @@ const FreeboardEdit = () => {
             },
             body: JSON.stringify({ content }),
         }).then((data) => {
-            if(data.result === "invaild_value") {
-                console.log(data.result);
-                alert("타이틀 또는 내용을 입력해 주세요.");
-            }
-            if(data.result === "no_authority") {
-                console.log(data.result);
-                alert("수정 권한이 없습니다.");
-            }
-            if(data.result === "data_too_long") {
-                console.log(data.result);
-                alert("내용이 너무 많습니다.");
-            }
-            if(data.result === "freeput_success") {
-                console.log(data.result);
-                alert("수정이 완료되었습니다.");
-                navigate('/freeboard');
-            }
+            
         }).then((res) => {
             return res.json();
         }).catch((error) => {
