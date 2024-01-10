@@ -16,7 +16,7 @@ const Login = () => {
             body: JSON.stringify({ id, pw }),
         })
             .then((res) => {
-                // 쿠키값 확인 코드
+                // // 쿠키값 확인 코드
                 console.log(res.headers.get("Set-Cookie"));
                 return res.json();
             })
