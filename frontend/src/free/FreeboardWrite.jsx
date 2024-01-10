@@ -7,7 +7,7 @@ const FreeboardWrite = () => {
         const title = document.getElementById('title_txt').value;
         const content = document.getElementById('content_txt').value;
 
-        const response = await fetch('http://coin.oppspark.net:8088/free', {
+        const response = await fetch('http://api.oppspark.net:8088/free', {
             method: 'POST', 
             headers: {
                 'Content-Type': 'application/json'

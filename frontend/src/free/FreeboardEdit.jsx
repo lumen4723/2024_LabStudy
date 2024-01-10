@@ -11,7 +11,7 @@ const FreeboardEdit = () => {
     const fetchPost = async ( {id} ) => {
         console.log("fetchPost 실행");
         console.log(id);
-        const response = await fetch(`http://coin.oppspark.net:8088/free/${id}`, {
+        const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
             method: 'GET', 
             headers: {
                 'Content-Type': 'application/json'
@@ -41,7 +41,7 @@ const FreeboardEdit = () => {
     }, [postid]);
 
     const handleSubmit = async ( {id} ) => { 
-        const response = await fetch(`http://coin.oppspark.net:8088/free/${id}`, {
+        const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const FreeboardEdit = () => {
     };
 
     const handlDelete = async ( {id} ) => { 
-        const response = await fetch(`http://coin.oppspark.net:8088/free/${id}`, {
+        const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
