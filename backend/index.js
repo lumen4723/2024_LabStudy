@@ -14,8 +14,14 @@ app.use(
     session({
         //secret은 임의의 난수값
         secret: "5$9!2@In#%gO$cS",
-        resave: true,
-        saveUninitialized: true,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            sameSite: false,
+            httpOnly: true,
+            secure: false,
+            maxAge: 1000 * 60 * 60 * 24,
+        },
     })
 );
 
