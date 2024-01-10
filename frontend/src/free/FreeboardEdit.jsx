@@ -1,11 +1,11 @@
 import "./FreeboardEdit.css";
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const FreeboardEdit = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
-    const [id, setPostId] = useState(null);
+    const { id: postid } = useParams();
     const navigate = useNavigate();
 
     const fetchPost = async ( {id} ) => {
@@ -17,11 +17,13 @@ const FreeboardEdit = () => {
                 'Content-Type': 'application/json'
             },
         }).then((res) => {
-            console.log(id);
+            console.log("fetchPost : " + id);
             return res.json();
         }).then((data) => {
             setTitle(data.title);
             setContent(data.content);
+            console.log(data.title);
+            console.log(data.content);
         }).catch((error) => {
             console.error('게시글 정보를 불러오는 중 에러 발생:', error);
         });
@@ -29,15 +31,14 @@ const FreeboardEdit = () => {
     
     //페이지 로딩 시 id가 존재하면 해당 게시글의 정보를 불러옴
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const postId = params.get('id');
-        console.log("useEffect load");
-        if (postId) {;
-          setPostId(postId);
-          fetchPost(postId);
+        if (postid) {
+            console.log("1 : " + postid);
+            fetchPost({ id: postid });
+        } else {
+            console.log("2 : " + postid);
+            alert("잘못된 접근입니다.");
         }
-        console.log(postId);
-      }, []);
+    }, [postid]);
 
     const handleSubmit = async ( {id} ) => { 
         const response = await fetch(`http://coin.oppspark.net:8088/free/${id}`, {
@@ -46,6 +47,9 @@ const FreeboardEdit = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ content }),
+        }).then((res) => {
+            console.log("handleSubmit : " + id);
+            return res.json();
         }).then((data) => {
             switch (data.result) {
                 case "no_session":
@@ -73,8 +77,6 @@ const FreeboardEdit = () => {
                     console.log(data.result);
                     alert("서버 오류가 있습니다. 잠시 후 다시 작성해 주세요.");
             }
-        }).then((res) => {
-            return res.json();
         }).catch((error) => {
             console.error("게시글 수정 중 에러 발생",error);
         });
@@ -86,15 +88,32 @@ const FreeboardEdit = () => {
             headers: {
                 "Content-Type": "application/json",
             },
+        }).then((res) => {
+            console.log("handDelete : " + id);
+            return res.json();
         }).then((data) => {
-            if(data.result === "no_authority") {
-                console.log(data.result);
-                alert("삭제 권한이 없습니다.");
-            }
-            if(data.result === "freedel_success") {
-                console.log(data.result);
-                alert("삭제가 완료되었습니다.");
-                navigate('/freeboard');
+            switch(data.result) {
+                case "no_session":
+                    console.log(data.result);
+                    alert("로그인 후 이용해 주세요.");
+                    break;
+                case "no_authority":
+                    console.log(data.result);
+                    alert("삭제 권한이 없습니다.");
+                    break;
+                case "freedel_fail":
+                    console.log(data.result);
+                    alert("삭제에 실패했습니다.");
+                    break;
+                case "freedel_success":
+                    console.log(data.result);
+                    alert("삭제되었습니다.");
+                    navigate('/freeboard');
+                    break;
+                default:
+                    console.log(data.result);
+                    alert("서버에 오류가 있습니다. 잠시 후 다시 삭제하세요.");
+                    break;
             }
         }).catch((error) => {
             console.error("게시글 수정 중 에러 발생",error);
@@ -104,17 +123,19 @@ const FreeboardEdit = () => {
     return (
         <div className="freeboardedit">
             <div>
-                <input type = 'text' id = 'title_txt' name = 'title'/>
+                <text type = 'text' id = 'title_txt' name = 'title'/>
+                    {title}
             </div>
             <div>
                 <textarea id = 'content_txt' name = 'content' onChange={(e) => setContent(e.target.value)}>
+                    {content}
                 </textarea>
             </div>
             <div className= "post_edit">
-                <button onClick= {() => handleSubmit(id)}> 포스트 수정 </button>
+                <button onClick= {handleSubmit}> 포스트 수정 </button>
             </div>
             <div className = "post_del">
-                <button onClick= {() => handlDelete(id)}> 포스트 삭제 </button>
+                <button onClick= {handlDelete}> 포스트 삭제 </button>
             </div>
         </div>
     );
