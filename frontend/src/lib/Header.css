@@ -1,10 +1,15 @@
 header {
-    /*display: flex; *//* 이 부분이 추가되었습니다 */
-    align-items: center; /* 이 부분은 수직 정렬을 위한 속성입니다 */
-    background-color: #f5f5f5;
-    padding: 20px;
     display: flex;
+    justify-content: space-between; /* 변경된 부분 */
+    align-items: center;
+    background-color: #fafafa;
+    padding: 20px 0 20px 0;
+    margin: 0;
+    width: 100%;
+}
+#HeaderDIV{
     
+    margin: 1; 
 }
 
 header h1 {
@@ -50,4 +55,7 @@ header li {
 
 header hr {
     margin-top: 0px;
+}
+.sign {
+    margin-left: auto;
 }
