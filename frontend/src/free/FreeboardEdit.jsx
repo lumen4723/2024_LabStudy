@@ -47,17 +47,14 @@ const FreeboardEdit = () => {
     }, [postid]);
 
     const handleSubmit = async ({ id }) => {
-        const response = await fetch(
-            `http://api.oppspark.net:8088/free/${id}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({ content }),
-            }
-        )
+        const response = await fetch(`http://localhost:8088/free/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ content }),
+        })
             .then((res) => {
                 console.log("handleSubmit : " + id);
                 return res.json();
@@ -98,16 +95,13 @@ const FreeboardEdit = () => {
     };
 
     const handlDelete = async ({ id }) => {
-        const response = await fetch(
-            `http://api.oppspark.net:8088/free/${id}`,
-            {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            }
-        )
+        const response = await fetch(`http://localhost:8088/free/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        })
             .then((res) => {
                 console.log("handDelete : " + id);
                 return res.json();

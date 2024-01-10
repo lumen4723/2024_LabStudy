@@ -15,7 +15,7 @@ router.post("/login", (req, res) => {
 
         connection.query(sql, params, (err, rows) => {
             // session user 정보가 디비에 없으면 로그인 페이지로 이동
-            if (rows.length == 0) {
+            if (!rows || rows.length == 0) {
                 res.send({ result: "invaild_session" });
                 return;
             }
@@ -35,7 +35,7 @@ router.post("/login", (req, res) => {
 
         connection.query(sql, params, (err, rows) => {
             // request body에 user 정보가 디비에 없으면 로그인 페이지로 이동
-            if (rows.length == 0) {
+            if (!rows || rows.length == 0) {
                 res.send({ result: "no_user" });
                 return;
             }

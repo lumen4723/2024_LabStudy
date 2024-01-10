@@ -9,7 +9,7 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        const response = await fetch("http://api.oppspark.net:8088/register", {
+        const response = await fetch("http://localhost:8088/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
