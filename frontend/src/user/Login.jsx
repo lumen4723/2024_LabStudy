@@ -49,11 +49,13 @@ const Login = () => {
             });
     };
 
-    const handleLogout = async () => { await fetch("http://api.oppspark.net:8088/login", {
+    const handleLogout = async () => {
+        await fetch("http://api.oppspark.net:8088/login", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
         }).catch((error) => {
             console.error("로그아웃 요청 중 에러 발생:", error);
         });

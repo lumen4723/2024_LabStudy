@@ -12,6 +12,7 @@ const FreeboardWrite = () => {
             headers: {
                 "Content-Type": "application/json",
             },
+            credentials: "include",
             body: JSON.stringify({ title, content }),
         })
             .then((res) => {
