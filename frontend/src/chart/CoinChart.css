@@ -1,0 +1,64 @@
+header {
+    width: 81%;
+    background-color: goldenrod;
+    font-size: 40px;
+    font-weight: bold;
+    margin-left: 5%;
+}
+header select {
+    float: left;
+    margin: 10px 0px 0px 20px;
+    width: 80px;
+    height: 30px;
+}
+header div div {
+    width: 45%;
+    display: inline-block;
+    text-align: right;
+}
+header button {
+    float: right;
+    margin: 10px 0px 0px 20px;
+    width: 80px;
+    height: 30px;
+}
+
+.charts > div {
+    margin: auto;
+}
+
+.info {
+    width: 81%;
+    margin-left: 5%;
+    margin-top: 20px;
+    background-color: ghostwhite;
+    font-size: 24px;
+    border: 1px solid darkgoldenrod;
+}
+.info div {
+    text-align: center;
+}
+.info div:nth-child(1) {
+    font-size: 32px;
+}
+.info .check {
+    font-size: 12px;
+}
+
+table {
+    margin: 0 auto;
+    border: 1px solid black;
+}
+tr {
+    height: 20px;
+}
+td {
+    border: 1px solid black;
+}
+
+.up {
+    color: green;
+}
+.down {
+    color: red;
+}
