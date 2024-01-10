@@ -1,21 +1,12 @@
 import "./Signup.css";
-
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
-    const [formData, setFormData] = useState({
-        id: "",
-        username: "",
-        pw: "",
-    });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
-    };
+    const [id, setId] = useState("");
+    const [username, setUsername] = useState("");
+    const [pw, setPw] = useState("");
+    const navigate = useNavigate();
 
     const handleSignup = async () => {
         const response = await fetch("http://coin.oppspark.net:8088/register", {
@@ -23,45 +14,71 @@ const Signup = () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({ id, username, pw }),
         })
-            .catch((error) => {
-                console.log("회원가입 오류");
+            .then((res) => {
+                console.log("id" + id);
+                console.log("username" + username);
+                console.log("pw" + pw);
+                return res.json();
             })
             .then((data) => {
-                if (data.result === "invaild_value") {
-                    alert("id 또는 password 값을 입력하세요. ");
-                    console.log(data.result);
+                switch (data.result) {
+                    case "already_exist":
+                        console.log(data.result);
+                        alert("이미 존재하는 아이디입니다.");
+                        break;
+                    case "data_too_long":
+                        console.log(data.result);
+                        alert("id 혹은 pw가 너무 깁니다.");
+                        break;
+                    case "register_success":
+                        console.log(data.result);
+                        alert("회원가입 되었습니다. 로그인 후 이용해 주세요.");
+                        navigate("/login");
+                        break;
+                    case "invaild_value":
+                        console.log(data.result);
+                        alert("id 혹은 pw를 입력해 주세요.");
+                        break;
+                    case "register_fail":
+                        console.log(data.result);
+                        alert("회원가입에 실패하였습니다.");
+                        break;
+                    default:
+                        console.log(data.log);
+                        alert("서버에 오류가 생겼습니다. 잠시 후 시도하세요.");
+                        break;
                 }
-                if (data.result === "register_success") {
-                    alert("회원가입 완료되었습니다. 로그인하세요.");
-                    navigator("/login");
-                }
+            })
+            .catch((error) => {
+                console.error("로그인 요청 중 에러 발생:", error);
             });
     };
 
     return (
-        <div className="signup">
-            <label>
-                ID:
-                <input
-                    type="text"
-                    name="id"
-                    value={formData.id}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
-            <label>
-                Password:
-                <input
-                    type="password"
-                    name="pw"
-                    value={formData.pw}
-                    onChange={handleInputChange}
-                />
-            </label>
-            <br />
+        <div>
+            <label>ID: </label>
+            <input
+                type="text"
+                value={id}
+                onChange={(e) => setId(e.target.value)}
+            />
+
+            <label>Username: </label>
+            <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+            />
+
+            <label>Password: </label>
+            <input
+                type="password"
+                value={pw}
+                onChange={(e) => setPw(e.target.value)}
+            />
+
             <button onClick={handleSignup}>회원가입</button>
         </div>
     );
