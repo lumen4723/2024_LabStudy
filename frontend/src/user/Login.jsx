@@ -7,8 +7,8 @@ const Login = () => {
     const [pw, setPw] = useState("");
     const navigate = useNavigate();
 
-    const handleLogin = async () => {
-        const response = await fetch("http://api.oppspark.net:8088/login", {
+    const handleLogin = () => {
+        fetch("http://localhost:8088/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -16,11 +16,7 @@ const Login = () => {
             credentials: "include",
             body: JSON.stringify({ id, pw }),
         })
-            .then((res) => {
-                // // 쿠키값 확인 코드
-                console.log(res.headers.get("Set-Cookie"));
-                return res.json();
-            })
+            .then((res) => res.json())
             .then((data) => {
                 switch (data.result) {
                     case "already_login":
@@ -50,29 +46,26 @@ const Login = () => {
             });
     };
 
-    const handleLogout = async () => {
-        try {
-            const response = await fetch(
-                "http://api.oppspark.net:8088/logout",
-                {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    credentials: "include",
-                }
-            );
+    // const handleLogout = async () => {
+    //     try {
+    //         const response = await fetch("http://localhost:8088/logout", {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //             credentials: "include",
+    //         });
 
-            if (response.ok) {
-                alert("로그아웃 성공!");
-                navigate("/");
-            } else {
-                alert("로그아웃 실패. 다시 시도해주세요.");
-            }
-        } catch (error) {
-            console.error("로그아웃 요청 중 에러 발생:", error);
-        }
-    };
+    //         if (response.ok) {
+    //             alert("로그아웃 성공!");
+    //             navigate("/");
+    //         } else {
+    //             alert("로그아웃 실패. 다시 시도해주세요.");
+    //         }
+    //     } catch (error) {
+    //         console.error("로그아웃 요청 중 에러 발생:", error);
+    //     }
+    // };
 
     return (
         <div className="container">
@@ -99,18 +92,18 @@ const Login = () => {
                 <div className="button-container">
                     <button
                         type="button"
-                        onClick={handleLogin}
+                        onClick={() => handleLogin()}
                         className="button"
                     >
                         로그인
                     </button>
-                    <button
+                    {/* <button
                         type="button"
                         onClick={handleLogout}
                         className="button"
                     >
                         로그아웃
-                    </button>
+                    </button> */}
                 </div>
                 <div className="signup-link-container">
                     <span className="signup-link-text">회원이 아니신가요?</span>

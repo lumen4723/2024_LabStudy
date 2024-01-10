@@ -11,7 +11,7 @@ router.get("/free", (req, res) => {
     const sql = "SELECT * FROM freeboard";
 
     connection.query(sql, (err, rows) => {
-        res.send(rows);
+        return res.send(rows);
     });
 });
 
@@ -20,7 +20,7 @@ router.get("/free/:id", (req, res) => {
     const id = [req.params.id];
 
     connection.query(sql, id, (err, rows) => {
-        res.send(rows);
+        return res.send(rows);
     });
 });
 

@@ -1,4 +1,4 @@
-header {
+/* header {
     width: 81%;
     background-color: goldenrod;
     font-size: 40px;
@@ -21,7 +21,7 @@ header button {
     margin: 10px 0px 0px 20px;
     width: 80px;
     height: 30px;
-}
+} */
 
 .charts > div {
     margin: auto;
@@ -35,7 +35,7 @@ header button {
     font-size: 24px;
     border: 1px solid darkgoldenrod;
 }
-.info div {
+/* .info div {
     text-align: center;
 }
 .info div:nth-child(1) {
@@ -43,7 +43,7 @@ header button {
 }
 .info .check {
     font-size: 12px;
-}
+} */
 
 table {
     margin: 0 auto;

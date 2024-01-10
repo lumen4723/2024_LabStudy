@@ -17,21 +17,20 @@ router.post("/register", (req, res) => {
             if (err) {
                 switch (err.code) {
                     case "ER_DUP_ENTRY":
-                        res.send({ result: "already_exist" });
-                        return;
-                    case "ER_DATA_TOO_LONG":
-                        res.send({ result: "data_too_long" });
-                        return;
-                    default:
-                        res.send({ result: "register_fail" });
-                        return;
-                }
-            }
+                        return res.send({ result: "already_exist" });
 
-            res.send({ result: "register_success" });
+                    case "ER_DATA_TOO_LONG":
+                        return res.send({ result: "data_too_long" });
+
+                    default:
+                        return res.send({ result: "register_fail" });
+                }
+            } else {
+                return res.send({ result: "register_success" });
+            }
         });
     } else {
-        res.send({ result: "invaild_value" });
+        return res.send({ result: "invaild_value" });
     }
 });
 

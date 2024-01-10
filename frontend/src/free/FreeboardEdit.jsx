@@ -3,95 +3,97 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const FreeboardEdit = () => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    const [title, setTitle] = useState("nowloading...");
+    const [content, setContent] = useState("nowloading...");
     const { id: postid } = useParams();
     const navigate = useNavigate();
 
-    const fetchPost = async ({ id }) => {
-        console.log("fetchPost 실행");
-        console.log(id);
-        const response = await fetch(
-            `http://api.oppspark.net:8088/free/${id}`,
-            {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        )
-            .then((res) => {
-                console.log("fetchPost : " + id);
-                return res.json();
-            })
+    const editVaildCheck = async ({ boardid }) => {
+        await fetch(`http://localhost:8088/free/${boardid}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        })
+            .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                setTitle(data[0].title);
-                setContent(data[0].content);
-                console.log(data[0].title);
-                console.log(data[0].content);
+                if (data.result === "edit_vaild") {
+                    navigate(`/freeboard/edit/${boardid}`);
+                    return true;
+                } else {
+                    console.log(data.result);
+                    alert("게시글 수정 권한이 없습니다.");
+                    navigate(`/freeboard/${boardid}`);
+                    return false;
+                }
             })
             .catch((error) => {
                 console.error("게시글 정보를 불러오는 중 에러 발생:", error);
             });
     };
 
-    //페이지 로딩 시 id가 존재하면 해당 게시글의 정보를 불러옴
+    const fetchPost = async ({ id }) => {
+        await fetch(`http://localhost:8088/free/${id}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setTitle(data[0].title);
+                setContent(data[0].content);
+            })
+            .catch((error) => {
+                console.error("게시글 정보를 불러오는 중 에러 발생:", error);
+            });
+    };
+
     useEffect(() => {
         if (postid) {
-            console.log("1 : " + postid);
-            fetchPost({ id: postid });
+            if (editVaildCheck({ boardid: postid })) {
+                fetchPost({ id: postid });
+            }
         } else {
-            console.log("2 : " + postid);
             alert("잘못된 접근입니다.");
         }
     }, [postid]);
 
     const handleSubmit = async ({ postid }) => {
-        const response = await fetch(
-            `http://api.oppspark.net:8088/free/${postid}`,
-            {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-                body: JSON.stringify({ content }),
-            }
-        )
-            .then((res) => {
-                console.log("handleSubmit : " + postid);
-                return res.json();
-            })
+        await fetch(`http://localhost:8088/free/${postid}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({ content }),
+        })
+            .then((res) => res.json())
             .then((data) => {
                 switch (data.result) {
                     case "no_session":
-                        console.log(data.result);
                         alert("로그인을 하고 작성하세요.");
+                        navigate("/login");
                         break;
                     case "invaild_value":
-                        console.log(data.result);
                         alert("내용을 입력하세요.");
                         break;
                     case "data_too_long":
-                        console.log(data.result);
                         alert("내용이 너무 깁니다.");
                         break;
                     case "freeput_success":
-                        console.log(data.result);
                         alert("게시글이 수정되었습니다.");
                         navigate("/freeboard");
                         break;
                     case "freeput_fail":
-                        console.log(data.result);
                         alert("게시글 수정에 실패했습니다.");
                         break;
                     case "no_authority":
-                        console.log(data.result);
                         alert("게시글 수정 권한이 없습니다.");
+                        navigate("/freeboard");
                         break;
                     default:
-                        console.log(data.result);
                         alert(
                             "서버 오류가 있습니다. 잠시 후 다시 작성해 주세요."
                         );
@@ -103,16 +105,13 @@ const FreeboardEdit = () => {
     };
 
     const handlDelete = async ({ postid }) => {
-        const response = await fetch(
-            `http://api.oppspark.net:8088/free/${postid}`,
-            {
-                method: "DELETE",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                credentials: "include",
-            }
-        )
+        const response = await fetch(`http://localhost:8088/free/${postid}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        })
             .then((res) => {
                 console.log("handDelete : " + postid);
                 return res.json();
@@ -151,23 +150,30 @@ const FreeboardEdit = () => {
 
     return (
         <div className="freeboardedit">
-            <div>
-                <text type="text" id="title_txt" name="title" />
+            <text type="text" id="title_txt" name="title">
                 {title}
-            </div>
-            <div>
-                <textarea
-                    id="content_txt"
-                    name="content"
-                    onChange={(e) => setContent(e.target.value)}
-                    placeholder={content}
-                ></textarea>
-            </div>
-            <div className="post_edit">
-                <button onClick={handleSubmit}> 포스트 수정 </button>
-            </div>
-            <div className="post_del">
-                <button onClick={handlDelete}> 포스트 삭제 </button>
+            </text>
+            <textarea
+                id="content_edit"
+                name="content"
+                onChange={(e) => setContent(e.target.value)}
+                value={content}
+            ></textarea>
+            <div className="button_container">
+                <button
+                    className="post_edit"
+                    onClick={() => handleSubmit({ postid })}
+                >
+                    {" "}
+                    수정{" "}
+                </button>
+                <button
+                    className="post_del"
+                    onClick={() => handlDelete({ postid })}
+                >
+                    {" "}
+                    삭제{" "}
+                </button>
             </div>
         </div>
     );

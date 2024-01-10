@@ -64,25 +64,24 @@ const Signup = () => {
                 value={id}
                 onChange={(e) => setId(e.target.value)}
             />
-    
+
             <label>Username: </label>
             <input
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
-    
+
             <label>Password: </label>
             <input
                 type="password"
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
             />
-    
+
             <button onClick={handleSignup}>회원가입</button>
         </div>
     );
-    
 };
 
 export default Signup;

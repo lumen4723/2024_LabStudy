@@ -1,13 +1,43 @@
 import "./FreeboardWrite.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const FreeboardWrite = () => {
-    const navigate = useNavigate();
-    const handleSubmit = async () => {
-        const title = document.getElementById("title_txt").value;
-        const content = document.getElementById("content_txt").value;
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
-        const response = await fetch("http://api.oppspark.net:8088/free", {
+    const navigate = useNavigate();
+
+    const vaild_write = async () => {
+        await fetch("http://localhost:8088/vaildlogin", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            credentials: "include",
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.result === "already_login") {
+                    console.log(data.result);
+                } else {
+                    console.log(data.result);
+                    alert("로그인을 하고 작성하세요.");
+                    navigate("/freeboard");
+                }
+            })
+            .catch((error) => {
+                console.error("로그인 확인 중 에러 발생:", error);
+            });
+    };
+
+    useEffect(() => {
+        vaild_write();
+    }, []);
+
+    const handleSubmit = async ({ title, content }) => {
+        await fetch("http://localhost:8088/free", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -55,24 +85,25 @@ const FreeboardWrite = () => {
 
     return (
         <div className="freeboardwrite">
-            <div>
-                <input
-                    type="text"
-                    id="title_txt"
-                    name="title"
-                    placeholder="제목"
-                />
-            </div>
-            <div>
-                <textarea
-                    id="content_txt"
-                    name="content"
-                    placeholder="내용을 입력하세요."
-                ></textarea>
-            </div>
-            <div className="post_submit">
-                <button onClick={handleSubmit}> 포스트 등록 </button>
-            </div>
+            <input
+                type="text"
+                id="title_txt"
+                name="title"
+                placeholder="제목"
+                onChange={(e) => setTitle(e.target.value)}
+            />
+            <textarea
+                id="content_write"
+                name="content"
+                placeholder="내용을 입력하세요."
+                onChange={(e) => setContent(e.target.value)}
+            ></textarea>
+            <button
+                className="post_submit"
+                onClick={() => handleSubmit({ title, content })}
+            >
+                작성
+            </button>
         </div>
     );
 };

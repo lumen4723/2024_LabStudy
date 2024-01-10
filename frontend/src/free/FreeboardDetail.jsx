@@ -4,35 +4,27 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 const FreeboardDetail = () => {
-    const [title, setTitle] = useState();
-    const [content, setContent] = useState();
+    const [title, setTitle] = useState("nowloading...");
+    const [content, setContent] = useState("nowloading...");
     const [author, setAuthor] = useState();
     const [created, setCreated] = useState();
-    const [view, setView] = useState("setCreated...");
+    const [view, setView] = useState();
 
-    const [titleC, setTitleComment] = useState("nowloading...");
-    const [contentC, setContentComment] = useState("nowloading...");
-    const [authorC, setAuthorComment] = useState("nowloading...");
-    const [createdC, setCreatedComment] = useState("nowloading...");
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState("");
 
     const navigate = useNavigate();
-
     const { id: boardid } = useParams();
-    const [comments, setComments] = useState([]);
 
     const getfboard = async ({ id }) => {
-        await fetch(`http://api.oppspark.net:8088/free/${id}`, {
+        await fetch(`http://localhost:8088/free/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         })
-            .then((res) => {
-                console.log(id);
-                return res.json();
-            })
+            .then((res) => res.json())
             .then((data) => {
-                console.log(data[0]);
                 setTitle(data[0].title);
                 setAuthor(data[0].userid);
                 setCreated(data[0].created);
@@ -44,19 +36,8 @@ const FreeboardDetail = () => {
             });
     };
 
-    useEffect(() => {
-        if (boardid) {
-            console.log("1 : " + boardid);
-            getfboard({ id: boardid });
-            getcomment({ id: boardid }); // getcomment 함수 호출 추가
-        } else {
-            // console.log("2 : " + boardid);
-            alert("잘못된 접근입니다.");
-        }
-    }, [boardid]);
-
     const getcomment = async ({ id }) => {
-        await fetch(`http://api.oppspark.net:8088/free/${id}/comment`, {
+        await fetch(`http://localhost:8088/free/${id}/comment`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,63 +45,62 @@ const FreeboardDetail = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
-                setComments(data); // 가져온 댓글로 'comments' 상태를 업데이트
+                setComments(data);
             })
             .catch((error) => {
                 console.error("댓글 정보를 불러오는 중 에러 발생:", error);
             });
     };
 
-    // const updateComments = (newComments) => {
-    //     setComments(newComments);
-    // };
+    useEffect(() => {
+        if (boardid) {
+            getfboard({ id: boardid });
+            getcomment({ id: boardid });
+        } else {
+            alert("잘못된 접근입니다.");
+        }
+    }, [boardid]);
 
-    const commentUpload = async ({ id }) => {
-        //const content = document.getElementById("comment_txt").value;
-
-        await fetch(`http://api.oppspark.net:8088/free/${boardid}/comment`, {
-            method: "PUT",
+    const commentUpload = async ({ boardid, comment }) => {
+        await fetch(`http://localhost:8088/free/${boardid}/comment`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             credentials: "include",
-            body: JSON.stringify({ boardid, comments }),
+            body: JSON.stringify({ content: comment }),
         })
-            .then((res) => {
-                console.log(
-                    "commentUpload : " + JSON.stringify({ boardid, content })
-                );
-                return res.json();
-            })
+            .then((res) => res.json())
             .then((data) => {
                 switch (data.result) {
                     case "no_session":
-                        console.log(data.result);
                         alert("로그인을 하고 작성하세요.");
+                        navigate("/login");
                         break;
                     case "invaild_value":
-                        console.log(data.result);
-                        alert("내용을 입력하세요.");
+                        alert("댓글을 입력하세요.");
+                        break;
+                    case "invaild_session":
+                        alert("로그인을 하고 작성하세요.");
+                        navigate("/login");
                         break;
                     case "data_too_long":
-                        console.log(data.result);
-                        alert("내용이 너무 깁니다.");
+                        alert("댓글이 너무 깁니다.");
                         break;
-                    case "freeput_success":
-                        console.log(data.result);
-                        alert("게시글이 작성되었습니다.");
-                        navigate("/freeboard");
+                    case "fcompost_success":
+                        alert("댓글이 작성되었습니다.");
+                        navigate(`/freeboard/${boardid}`);
                         break;
-                    case "freeput_fail":
-                        console.log(data.result);
+                    case "fcompost_fail":
                         alert("댓글 작성에 실패했습니다.");
+                        navigate(`/freeboard/${boardid}`);
                         break;
                     default:
-                        console.log(data.result);
                         alert(
                             "서버 오류가 있습니다. 잠시 후 다시 작성해 주세요."
                         );
+                        navigate(`/freeboard/${boardid}`);
+                        break;
                 }
             })
             .catch((error) => {
@@ -128,51 +108,49 @@ const FreeboardDetail = () => {
             });
     };
 
-    const ids = boardid;
     return (
         <div className="freeboarddetail">
-            <div>
-                <h1>{title}</h1>
-                <hr></hr>
+            <div className="post">
+                <h1 className="title">{title}</h1>
+                <hr />
                 <p>{content}</p>
-                <hr></hr>
+                <hr />
                 <p>작성자: {author}</p>
                 <p>작성 시간: {created}</p>
                 <p>조회수: {view}</p>
 
-                <Link to={`/freeboard/edit/${ids}`}>
-                    <button type="button" className="post_edit">
-                        개시글 수정
-                    </button>
+                <Link className="post_edit" to={`/freeboard/edit/${boardid}`}>
+                    개시글 수정
                 </Link>
             </div>
 
-            <hr></hr>
+            <hr />
             <p>댓글 입력하기</p>
 
             <textarea
                 id="comment_txt"
                 name="comment"
-                onChange={(e) => setContentComment(e.target.value)}
+                onChange={(e) => setComment(e.target.value)}
+            ></textarea>
+
+            <button
+                className="comment_post"
+                onClick={() => commentUpload({ boardid, comment })}
             >
-                {content}
-            </textarea>
+                댓글 등록
+            </button>
 
-            <div className="comment_post">
-                <button onClick={commentUpload}> 댓글 작성 </button>
-            </div>
-
-            <hr></hr>
+            <hr />
 
             <h3>댓글</h3>
 
-            <div className="freeComment">
-                {comments.map((comment) => (
-                    <div key={comment.id}>
-                        <p>작성자: {comment.userid}</p>
-                        <p>작성 시간: {comment.created}</p>
-                        <p>작성 내용{comment.content}</p>
-                        <hr></hr>
+            <div className="freeComment-list">
+                {comments.map((comm) => (
+                    <div className="freeComment" key={comm.id}>
+                        <p>작성자: {comm.userid}</p>
+                        <p>작성 시간: {comm.created}</p>
+                        <p>작성 내용{comm.content}</p>
+                        <hr />
                     </div>
                 ))}
             </div>

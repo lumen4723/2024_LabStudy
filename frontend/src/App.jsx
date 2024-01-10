@@ -5,6 +5,7 @@ import Landpage from "./Landpage";
 
 import Login from "./user/Login";
 import Signup from "./user/Signup";
+import Logout from "./user/Logout";
 
 import Free from "./free/Freeboard";
 import FreeDetail from "./free/FreeboardDetail";
@@ -36,6 +37,7 @@ const App = () => {
 
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
+                    <Route path="/logout" element={<Logout />} />
 
                     <Route path="/freeboard" element={<Free />} />
                     <Route path="/freeboard/:id" element={<FreeDetail />} />

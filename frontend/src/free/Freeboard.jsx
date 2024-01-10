@@ -7,15 +7,13 @@ const Freeboard = () => {
 
     useEffect(() => {
         const fetchPosts = async () => {
-            const response = await fetch("http://api.oppspark.net:8088/free", {
+            const response = await fetch("http://localhost:8088/free", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
             })
-                .then((res) => {
-                    return res.json();
-                })
+                .then((res) => res.json())
                 .then((data) => {
                     console.log(data);
                     setPosts(data);
@@ -28,18 +26,26 @@ const Freeboard = () => {
                 });
         };
         fetchPosts(); // fetchPosts 함수 호출
-    }, []); // 빈 배열을 전달하여 한 번만 실행되도록 설정
+    }, []);
 
     return (
-        <div>
-            <h1>게시글 목록</h1>
-            <ul>
+        <div className="freeboard">
+            <h1 className="freetitle">게시글 목록</h1>
+            <ul className="post-list">
                 {posts.map((post) => (
-                    <li key={post.id}>
-                        <Link to={`/freeboard/${post.id}`}>{post.title}</Link>
+                    <li className="post" key={post.id}>
+                        <Link
+                            className="detailbtn"
+                            to={`/freeboard/${post.id}`}
+                        >
+                            {post.title}
+                        </Link>
                     </li>
                 ))}
             </ul>
+            <Link className="writebtn" to="/freeboard/write">
+                새 글 쓰기
+            </Link>
         </div>
     );
 };

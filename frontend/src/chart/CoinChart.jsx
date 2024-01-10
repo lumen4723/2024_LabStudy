@@ -107,40 +107,30 @@ const CoinChart = () => {
 
     const Header = () => {
         return (
-            <header>
+            <div>
+                <select value={coin} onChange={(e) => setCoin(e.target.value)}>
+                    {coinlist.map((item) => (
+                        <option value={"KRW-" + item}>{item}</option>
+                    ))}
+                </select>
+                <select value={term} onChange={(e) => setTerm(e.target.value)}>
+                    <option value="/minutes/1">1분</option>
+                    <option value="/minutes/3">3분</option>
+                    <option value="/minutes/5">5분</option>
+                    <option value="/minutes/10">10분</option>
+                    <option value="/minutes/15">15분</option>
+                    <option value="/minutes/30">30분</option>
+                    <option value="/minutes/60">1시간</option>
+                    <option value="/minutes/240">4시간</option>
+                    <option value="/days">1일</option>
+                    <option value="/weeks">1주</option>
+                    <option value="/months">1달</option>
+                </select>
                 <div>
-                    <select
-                        value={coin}
-                        onChange={(e) => setCoin(e.target.value)}
-                    >
-                        {coinlist.map((item) => (
-                            <option value={"KRW-" + item}>{item}</option>
-                        ))}
-                    </select>
-                    <select
-                        value={term}
-                        onChange={(e) => setTerm(e.target.value)}
-                    >
-                        <option value="/minutes/1">1분</option>
-                        <option value="/minutes/3">3분</option>
-                        <option value="/minutes/5">5분</option>
-                        <option value="/minutes/10">10분</option>
-                        <option value="/minutes/15">15분</option>
-                        <option value="/minutes/30">30분</option>
-                        <option value="/minutes/60">1시간</option>
-                        <option value="/minutes/240">4시간</option>
-                        <option value="/days">1일</option>
-                        <option value="/weeks">1주</option>
-                        <option value="/months">1달</option>
-                    </select>
-                    <div>
-                        <span>{coin.split("-")[1]} 차트</span>
-                        <button onClick={() => setReload(!reload)}>
-                            Reload
-                        </button>
-                    </div>
+                    <span>{coin.split("-")[1]} 차트</span>
+                    <button onClick={() => setReload(!reload)}>Reload</button>
                 </div>
-            </header>
+            </div>
         );
     };
 

@@ -9,55 +9,65 @@ const connection = mysql.createConnection(dbconfig);
 
 router.post("/login", (req, res) => {
     if (req.session.user) {
-        // already logged in
         const sql = "SELECT * FROM user WHERE id = ? AND pw = ?";
         const params = [req.session.user.id, req.session.user.pw];
 
         connection.query(sql, params, (err, rows) => {
-            // session user 정보가 디비에 없으면 로그인 페이지로 이동
             if (!rows || rows.length == 0) {
-                res.send({ result: "invaild_session" });
-                return;
+                return res.send({ result: "invaild_session" });
+            } else {
+                req.session.user = {
+                    id: req.session.user.id,
+                    pw: req.session.user.pw,
+                };
+
+                res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
+                return res.send({ result: "already_login" });
             }
-
-            // session user 정보가 디비에 있으면 메인 페이지로 이동
-            req.session.user = {
-                id: req.session.user.id,
-                pw: req.session.user.pw,
-            };
-
-            res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
-            res.send({ result: "already_login" });
         });
     } else if (req.body.id && req.body.pw) {
         const sql = "SELECT * FROM user WHERE id = ? AND pw = ?";
         const params = [req.body.id, req.body.pw];
 
         connection.query(sql, params, (err, rows) => {
-            // request body에 user 정보가 디비에 없으면 로그인 페이지로 이동
             if (!rows || rows.length == 0) {
-                res.send({ result: "no_user" });
-                return;
+                return res.send({ result: "no_user" });
+            } else {
+                req.session.user = {
+                    id: req.body.id,
+                    pw: req.body.pw,
+                };
+
+                res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
+                return res.send({ result: "login_success" });
             }
-
-            // request body에 user 정보가 디비에 있으면 메인 페이지로 이동
-            req.session.user = {
-                id: req.body.id,
-                pw: req.body.pw,
-            };
-
-            res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
-            res.send({ result: "login_success" });
         });
     } else {
-        res.send({ result: "invaild_value" });
+        return res.send({ result: "invaild_value" });
     }
 });
 
 router.delete("/logout", (req, res) => {
     req.session.destroy();
     res.clearCookie("name");
-    res.sendStatus(200);
+    return res.sendStatus(200);
+});
+
+router.post("/vaildlogin", (req, res) => {
+    if (req.session.user) {
+        const sql = "SELECT * FROM user WHERE id = ? AND pw = ?";
+        const params = [req.session.user.id, req.session.user.pw];
+
+        connection.query(sql, params, (err, rows) => {
+            if (!rows || rows.length == 0) {
+                return res.send({ result: "invaild_session" });
+            } else {
+                return res.send({ result: "already_login" });
+            }
+        });
+    } else {
+        return res.send({ result: "invaild_value" });
+    }
 });
 
 module.exports = router;
