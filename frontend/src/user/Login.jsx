@@ -43,7 +43,7 @@ const Login = ({ setIsloggedin }) => {
     };
 
     return (
-        <div className="container">
+        <div className="LoginContainer">
             <h1 className="title">회원 로그인</h1>
             <div className="form-container">
                 <label className="label">

@@ -1,4 +1,4 @@
-.container {
+.SignUpContainer {
     width: 300px;
     padding: 16px;
     background-color: white;
@@ -8,13 +8,13 @@
     margin-top: 50px;
 }
 
-.container label {
+.SignUpContainer label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
 
-.container input {
+.SignUpContainer input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -22,7 +22,7 @@
     border-radius: 4px;
 }
 
-.container button {
+.SignUpContainer button {
     width: 100%;
     background-color: #4CAF50;
     color: white;
@@ -33,6 +33,6 @@
     cursor: pointer;
 }
 
-.container button:hover {
+.SignUpContainer button:hover {
     opacity: 0.8;
 }

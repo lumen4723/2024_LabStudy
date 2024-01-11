@@ -46,7 +46,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="container">
+        <div className="SignUpContainer">
             <label>ID: </label>
             <input
                 type="text"
