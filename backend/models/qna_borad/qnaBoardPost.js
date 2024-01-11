@@ -39,15 +39,15 @@ router.put("/qna/:id", (req, res) => {
     } else if (!req.body.content) {
         return res.send({ result: "invaild_value" });
     } else {
-        const sql = "SELECT * FROM qnaBoard WHERE id = ? AND userid = ?";
+        const sql = "SELECT * FROM qnaboard WHERE id = ? AND userid = ?";
         const params = [req.params.id, req.session.user.id];
 
         connection.query(sql, params, (err, rows) => {
             if (!rows || rows.length == 0) {
                 return res.send({ result: "no_authority" });
             } else {
-                const sql2 = "UPDATE qnaBoard SET question = ? WHERE id = ?";
-                const params2 = [req.body.question, req.params.id];
+                const sql2 = "UPDATE qnaboard SET question = ? WHERE id = ? AND userid = ?";
+                const params2 = [req.body.content, req.params.id];
 
                 connection.query(sql2, params2, (err, rows) => {
                     if (err) {
@@ -71,14 +71,14 @@ router.delete("/qna/:id", (req, res) => {
     if (!req.session.user) {
         return res.send({ result: "no_session" });
     } else {
-        const sql = "SELECT * FROM qnaBoard WHERE id = ? AND userid = ?";
+        const sql = "SELECT * FROM qnaboard WHERE id = ? AND userid = ?";
         const params = [req.params.id, req.session.user.id];
 
         connection.query(sql, params, (err, rows) => {
             if (!rows || rows.length == 0) {
                 return res.send({ result: "no_authority" });
             } else {
-                const sql2 = "DELETE FROM qnaBoard WHERE id = ?";
+                const sql2 = "DELETE FROM qnaboard WHERE id = ?";
                 const params2 = [req.params.id];
 
                 connection.query(sql2, params2, (err, rows) => {
