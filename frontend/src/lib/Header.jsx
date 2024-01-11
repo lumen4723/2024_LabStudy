@@ -4,10 +4,11 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 
 const Header = ({ isloggedin }) => {
-    const [username, setUsername] = useState(null);
+    const [username, setUsername] = useState("nowloading...");
 
     useEffect(() => {
         const cookieValue = Cookies.get("name");
+        console.log(cookieValue);
         if (cookieValue) {
             setUsername(cookieValue);
         }
@@ -16,7 +17,7 @@ const Header = ({ isloggedin }) => {
     return (
         <div className="HeaderDIV">
             <header>
-                <Link to="http://localhost:3000/">
+                <Link to="/">
                     <h1>코인라이프</h1>
                 </Link>
                 <ul className="menu">
