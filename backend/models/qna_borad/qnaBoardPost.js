@@ -42,7 +42,7 @@ router.put("/qna/:id", (req, res) => {
         const params = [req.params.id, req.session.user.id];
 
         connection.query(sql, params, (err, rows) => {
-            if(!reows || rows.length == 0){
+            if(!rows || rows.length == 0){
                 return res.send({result: "no_authority"});
             }else {
                 const sql2 = "UPDATE qnaBoard SET question = ? WHERE id = ?";

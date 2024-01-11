@@ -74,6 +74,9 @@ app.use("/", getQnaBoardRouter);
 const postQnaBoardRouter = require("./models/qna_borad/qnaBoardPost.js");
 app.use("/", postQnaBoardRouter);
 
+const post = require("./models/qna_borad/qna.js");
+app.use("/", post);
+
 //질문 게시판
 
 app.listen(port, () => {

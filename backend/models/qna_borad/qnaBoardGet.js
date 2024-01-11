@@ -27,7 +27,7 @@ router.get("/qna/:id", (req, res) => {
         }
         connection.query(viewCountSQL, id, (err) => {
             if (err){
-                return res(err);
+                return res(err);q
             }
             return res.send(rows);
         });
