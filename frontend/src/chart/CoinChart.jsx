@@ -71,7 +71,7 @@ const CoinChart = () => {
                 "?market=" +
                 coin +
                 "&count=" +
-                Math.floor(window.innerWidth / 28), // 반응형 데이터 개수
+                Math.floor(window.innerWidth / 12), // 반응형 데이터 개수
             {
                 method: "GET",
             }

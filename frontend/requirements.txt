@@ -1,0 +1,8 @@
+npm install cors
+npm install js-cookie
+npm install react
+npm install react-dom
+npm install react-router-dom
+npm install react-scripts
+npm install react-google-charts
+npm install web-vitals

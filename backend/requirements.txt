@@ -1,0 +1,5 @@
+npm install express
+npm install cookie-parser
+npm install cors
+npm install express-session
+npm install mysql
