@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Logout = () => {
+const Logout = ({ setIsloggedin }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -14,8 +13,8 @@ const Logout = () => {
         })
             .then((res) => {
                 if (res.ok) {
-                    alert("로그아웃 성공!");
-                    navigate("/", { replace: true });
+                    setIsloggedin(false);
+                    navigate("/");
                 } else {
                     alert("로그아웃 실패. 다시 시도해주세요.");
                 }

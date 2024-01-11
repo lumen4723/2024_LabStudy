@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Landpage from "./Landpage";
@@ -23,21 +23,27 @@ import Header from "./lib/Header";
 import Footer from "./lib/Footer";
 import NotFound from "./lib/NotFound";
 
-import { Link } from "react-router-dom";
-
 import "./App.css";
 
 const App = () => {
+    const [isloggedin, setIsloggedin] = useState(false);
+
     return (
         <div className="App">
             <BrowserRouter>
-                <Header />
+                <Header isloggedin={isloggedin} />
                 <Routes>
                     <Route path="/" element={<Landpage />} />
 
-                    <Route path="/login" element={<Login />} />
+                    <Route
+                        path="/login"
+                        element={<Login setIsloggedin={setIsloggedin} />}
+                    />
                     <Route path="/signup" element={<Signup />} />
-                    <Route path="/logout" element={<Logout />} />
+                    <Route
+                        path="/logout"
+                        element={<Logout setIsloggedin={setIsloggedin} />}
+                    />
 
                     <Route path="/freeboard" element={<Free />} />
                     <Route path="/freeboard/:id" element={<FreeDetail />} />
