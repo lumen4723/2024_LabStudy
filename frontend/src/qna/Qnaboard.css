@@ -1,0 +1,58 @@
+.qnaboard {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.qnatitle {
+    text-align: center;
+    color: #333;
+    padding: 20px 0;
+}
+
+.postfree-list {
+    width: 80%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.postqna {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.postqna:last-child {
+    border: none;
+}
+
+.postqna a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.postqna a:hover {
+    color: #0056b3;
+}
+
+.writebtn {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+.writebtn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.postfree {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

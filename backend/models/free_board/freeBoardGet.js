@@ -17,10 +17,20 @@ router.get("/free", (req, res) => {
 
 router.get("/free/:id", (req, res) => {
     const sql = "SELECT * FROM freeboard WHERE id = ?";
+    const viewCountSQL = "UPDATE freeboard SET view = view + 1 WHERE id = ?";
+
     const id = [req.params.id];
 
-    connection.query(sql, id, (err, rows) => {
-        return res.send(rows);
+    connection.query(sql, id, (err, rows) => { 
+        if (err) {
+            return res(err);
+        }
+        connection.query(viewCountSQL, id, (err) => {
+            if (err) {
+                return res(err);
+            }
+            return res.send(rows);
+        });
     });
 });
 

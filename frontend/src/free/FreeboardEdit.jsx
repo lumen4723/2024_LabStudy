@@ -22,7 +22,6 @@ const FreeboardEdit = () => {
                     navigate(`/freeboard/edit/${boardid}`);
                     return true;
                 } else {
-                    console.log(data.result);
                     alert("게시글 수정 권한이 없습니다.");
                     navigate(`/freeboard/${boardid}`);
                     return false;
@@ -105,7 +104,7 @@ const FreeboardEdit = () => {
     };
 
     const handlDelete = async ({ postid }) => {
-        const response = await fetch(`http://localhost:8088/free/${postid}`, {
+        await fetch(`http://localhost:8088/free/${postid}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -119,24 +118,19 @@ const FreeboardEdit = () => {
             .then((data) => {
                 switch (data.result) {
                     case "no_session":
-                        console.log(data.result);
                         alert("로그인 후 이용해 주세요.");
                         break;
                     case "no_authority":
-                        console.log(data.result);
                         alert("삭제 권한이 없습니다.");
                         break;
                     case "freedel_fail":
-                        console.log(data.result);
                         alert("삭제에 실패했습니다.");
                         break;
                     case "freedel_success":
-                        console.log(data.result);
                         alert("삭제되었습니다.");
                         navigate("/freeboard");
                         break;
                     default:
-                        console.log(data.result);
                         alert(
                             "서버에 오류가 있습니다. 잠시 후 다시 삭제하세요."
                         );
