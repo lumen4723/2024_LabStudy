@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const path = require("path");
@@ -6,7 +6,6 @@ const mysql = require("mysql");
 const mainModulePath = path.dirname(require.main.filename);
 const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
-
 
 router.get("/qna/:id/answer", (req, res) => {
     const sql = "SELECT * FROM qnacomment WHERE boardid = ?";
@@ -38,13 +37,12 @@ router.post("/qna/:id/answer", (req, res) => {
                     default:
                         return res.send({ result: "qnapost_fail" });
                 }
+            } else {
+                return res.send({ result: "qna_success" });
             }
-
-            return res.send({ result: "qna_success" });
         });
     }
 });
-
 
 // router.put("/qna/:id/:qid/:aid", (req, res) => {});
 

@@ -17,7 +17,7 @@ router.post("/free/:id/comment", (req, res) => {
     } else {
         const sql =
             "INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
-        const params = [req.body.content, req.params.ㅈ, req.session.user.id];
+        const params = [req.body.content, req.params.id, req.session.user.id];
 
         connection.query(sql, params, (err, rows) => {
             if (err) {
@@ -28,9 +28,9 @@ router.post("/free/:id/comment", (req, res) => {
                     default:
                         return res.send({ result: "fcompost_fail" });
                 }
+            } else {
+                return res.send({ result: "fcompost_success" });
             }
-
-            return res.send({ result: "fcompost_success" });
         });
     }
 });
@@ -63,9 +63,9 @@ router.delete("/free/:id/:cid", (req, res) => {
                 connection.query(sql2, id2, (err, rows) => {
                     if (err) {
                         return res.send({ result: "fcomdel_fail" });
+                    } else {
+                        return res.send({ result: "fcomdel_success" });
                     }
-
-                    return res.send({ result: "fcomdel_success" });
                 });
             }
         });
