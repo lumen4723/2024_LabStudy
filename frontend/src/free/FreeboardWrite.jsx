@@ -1,7 +1,6 @@
 import "./FreeboardWrite.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 
 const FreeboardWrite = () => {
     const [title, setTitle] = useState("");
@@ -20,9 +19,7 @@ const FreeboardWrite = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.result === "already_login") {
-                    console.log(data.result);
                 } else {
-                    console.log(data.result);
                     alert("로그인을 하고 작성하세요.");
                     navigate("/freeboard");
                 }
@@ -51,28 +48,22 @@ const FreeboardWrite = () => {
             .then((data) => {
                 switch (data.result) {
                     case "no_session":
-                        console.log(data.result);
                         alert("로그인을 하고 작성하세요.");
                         break;
                     case "invaild_value":
-                        console.log(data.result);
                         alert("타이틀 또는 내용을 입력하세요.");
                         break;
                     case "data_too_long":
-                        console.log(data.result);
                         alert("내용이 너무 깁니다.");
                         break;
                     case "freepost_success":
-                        console.log(data.result);
                         alert("게시글이 작성되었습니다.");
                         navigate("/freeboard");
                         break;
                     case "freepost_fail":
-                        console.log(data.result);
                         alert("게시글 작성에 실패했습니다.");
                         break;
                     default:
-                        console.log(data.result);
                         alert(
                             "서버 오류가 있습니다. 잠시 후 다시 작성해 주세요."
                         );

@@ -5,7 +5,7 @@ import "./Landpage.css";
 const Landpage = () => {
     return (
         <>
-            <div className="landpage">
+            {/* <div className="landpage">
                 <h1>Landpage</h1>
             </div>
             <Link to="/">
@@ -47,7 +47,7 @@ const Landpage = () => {
 
             <Link to="/undefined">
                 <p>notfound</p>
-            </Link>
+            </Link> */}
         </>
     );
 };
