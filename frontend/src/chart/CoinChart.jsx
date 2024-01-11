@@ -71,7 +71,7 @@ const CoinChart = () => {
                 "?market=" +
                 coin +
                 "&count=" +
-                Math.floor(window.innerWidth / 18), // 반응형 데이터 개수
+                Math.floor(window.innerWidth / 28), // 반응형 데이터 개수
             {
                 method: "GET",
             }
@@ -105,15 +105,23 @@ const CoinChart = () => {
             });
     }, [reload, coin, term]);
 
-    const Header = () => {
+    const ChartTools = () => {
         return (
-            <div>
-                <select value={coin} onChange={(e) => setCoin(e.target.value)}>
+            <div className="charttools">
+                <select
+                    className="selectcoin"
+                    value={coin}
+                    onChange={(e) => setCoin(e.target.value)}
+                >
                     {coinlist.map((item) => (
                         <option value={"KRW-" + item}>{item}</option>
                     ))}
                 </select>
-                <select value={term} onChange={(e) => setTerm(e.target.value)}>
+                <select
+                    className="selecttime"
+                    value={term}
+                    onChange={(e) => setTerm(e.target.value)}
+                >
                     <option value="/minutes/1">1분</option>
                     <option value="/minutes/3">3분</option>
                     <option value="/minutes/5">5분</option>
@@ -126,9 +134,14 @@ const CoinChart = () => {
                     <option value="/weeks">1주</option>
                     <option value="/months">1달</option>
                 </select>
-                <div>
-                    <span>{coin.split("-")[1]} 차트</span>
-                    <button onClick={() => setReload(!reload)}>Reload</button>
+                <div className="charttools-right">
+                    <span className="nickname">{coin.split("-")[1]} 차트</span>
+                    <button
+                        className="reloadbtn"
+                        Click={() => setReload(!reload)}
+                    >
+                        Reload
+                    </button>
                 </div>
             </div>
         );
@@ -136,18 +149,18 @@ const CoinChart = () => {
 
     return (
         <>
-            <Header />
+            <ChartTools />
             <div className="charts">
                 <Chart
                     chartType="CandlestickChart"
-                    width="90%"
+                    width="100%"
                     height="600px"
                     data={CandleData}
                     options={CandleOptions}
                 />
                 <Chart
                     chartType="ColumnChart"
-                    width="90%"
+                    width="100%"
                     height="300px"
                     data={VolumeData}
                     options={VolumeOptions}
