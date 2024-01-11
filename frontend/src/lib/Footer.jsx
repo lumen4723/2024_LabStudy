@@ -32,6 +32,7 @@ const Footer = () => {
         </div>
       )}
       </div>
+      <span style={{ fontSize: '12px', opacity: '0.8' }}>코인 좀 아는 사람들</span>
     </footer>
   );
 };
