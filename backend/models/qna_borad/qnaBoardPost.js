@@ -55,8 +55,8 @@ router.put("/qna/:id", (req, res) => {
                     return res.send({result: "qnaedit_success"});
                 });
             }
-        }
-    };
+        });
+    }
 });
 
 router.delete("/qna/:id", (req, res) => {

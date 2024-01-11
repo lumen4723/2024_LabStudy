@@ -17,11 +17,21 @@ router.get("/qna", (req, res) => {
 
 router.get("/qna/:id", (req, res) => {
     const sql = "SELECT * FROM qnaboard WHERE id = ?";
+    const viewCountSQL = "UPDATE qnaboard SET view = view + 1 WHERE id = ?";
+
     const id = [req.params.id];
 
     connection.query(sql, id, (err, rows) => {
-        return res.send(rows);
+        if (err){
+            return res(err);
+        }
+        connection.query(viewCountSQL, id, (err) => {
+            if (err){
+                return res(err);
+            }
+            return res.send(rows);
+        });
     });
-});
+}); 
 
 module.exports = router;
