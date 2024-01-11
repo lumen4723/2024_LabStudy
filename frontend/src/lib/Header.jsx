@@ -1,23 +1,17 @@
 import "./Header.css";
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // js-cookie 라이브러리를 사용
-// import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
 
-const Header = () => {
+const Header = ({ isloggedin }) => {
     const [username, setUsername] = useState(null);
-
-    // const cookieValue = Cookies.get("name");
-    // if (cookieValue) {
-    //     setUsername(cookieValue);
-    // }
 
     useEffect(() => {
         const cookieValue = Cookies.get("name");
         if (cookieValue) {
             setUsername(cookieValue);
         }
-    }, []);
+    }, [isloggedin]);
 
     return (
         <div className="HeaderDIV">
@@ -38,7 +32,7 @@ const Header = () => {
                 </ul>
 
                 <ul className="sign">
-                    {username ? (
+                    {isloggedin ? (
                         <>
                             <li>
                                 환영합니다 <br />

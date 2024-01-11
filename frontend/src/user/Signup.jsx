@@ -9,44 +9,33 @@ const Signup = () => {
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        const response = await fetch("http://localhost:8088/register", {
+        await fetch("http://localhost:8088/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ id, username, pw }),
         })
-            .then((res) => {
-                console.log("id" + id);
-                console.log("username" + username);
-                console.log("pw" + pw);
-                return res.json();
-            })
+            .then((res) => res.json())
             .then((data) => {
                 switch (data.result) {
                     case "already_exist":
-                        console.log(data.result);
                         alert("이미 존재하는 아이디입니다.");
                         break;
                     case "data_too_long":
-                        console.log(data.result);
                         alert("id 혹은 pw가 너무 깁니다.");
                         break;
                     case "register_success":
-                        console.log(data.result);
                         alert("회원가입 되었습니다. 로그인 후 이용해 주세요.");
                         navigate("/login");
                         break;
                     case "invaild_value":
-                        console.log(data.result);
                         alert("id 혹은 pw를 입력해 주세요.");
                         break;
                     case "register_fail":
-                        console.log(data.result);
                         alert("회원가입에 실패하였습니다.");
                         break;
                     default:
-                        console.log(data.log);
                         alert("서버에 오류가 생겼습니다. 잠시 후 시도하세요.");
                         break;
                 }
@@ -79,7 +68,7 @@ const Signup = () => {
                 onChange={(e) => setPw(e.target.value)}
             />
 
-            <button onClick={handleSignup}>회원가입</button>
+            <button onClick={() => handleSignup()}>회원가입</button>
         </div>
     );
 };
