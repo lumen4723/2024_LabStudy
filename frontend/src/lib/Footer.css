@@ -1,28 +1,60 @@
 footer {
-    text-align: left;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  margin-top: 50px;
+  background-color: #fafafa;
+  padding: 30px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.2; /* 글자 사이의 여백 조정 */
 }
-  
-hr {
-    margin-top: 0;
-    border: 1px solid #ddd;
+
+.footerHr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
 }
-  
-.content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+
+.footerContent {
+  margin-bottom: 15px; /* 하단 여백 조정 */
 }
-  
-span, h3 {
-    margin-bottom: 10px;
+
+.footerP {
+  font-size: 14px; /* 글자 크기 조정 */
+  color: #666;
 }
-  
+
+.footerSpan {
+  display: block;
+  margin-bottom: 5px; /* 하단 여백 조정 */
+  line-height: 0.2; /* span 글자 사이의 간격 조정 */
+}
+
+.footerH3 {
+  text-align: center; /* 위치 조정 */
+  font-size: 20px; /* 글자 크기 조정 */
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+
 .logo {
-    max-width: 150px;
-    height: auto;
+  width: 50px; /* 로고 크기 조정 */
+  height: 50px; /* 로고 크기 조정 */
+  margin: 0 auto;
+  display: block;
+}
+
+.triangle-button {
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid black;
+  background: transparent;
+  border-radius: 0;
+  margin-bottom: 10px;
+  transition: transform .6s ease-in-out;
+}
+
+.triangle-button.down {
+  transform: scaleY(-1);
 }

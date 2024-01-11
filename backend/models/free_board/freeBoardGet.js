@@ -8,7 +8,7 @@ const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
 const connection = mysql.createConnection(dbconfig);
 
 router.get("/free", (req, res) => {
-    const sql = "SELECT * FROM freeboard";
+    const sql = "SELECT * FROM freeboard ORDER BY ID DESC;";
 
     connection.query(sql, (err, rows) => {
         return res.send(rows);

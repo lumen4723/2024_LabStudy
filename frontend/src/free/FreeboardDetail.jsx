@@ -149,7 +149,7 @@ const FreeboardDetail = () => {
                     <div className="freeComment" key={comm.id}>
                         <p>작성자: {comm.userid}</p>
                         <p>작성 시간: {comm.created}</p>
-                        <p>작성 내용{comm.content}</p>
+                        <p>작성 내용: {comm.content}</p>
                         <hr />
                     </div>
                 ))}

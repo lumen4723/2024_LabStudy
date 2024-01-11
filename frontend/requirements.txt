@@ -6,3 +6,5 @@ npm install react-router-dom
 npm install react-scripts
 npm install react-google-charts
 npm install web-vitals
+npm install three @types/three @react-three/fiber
+npm install @react-three/drei

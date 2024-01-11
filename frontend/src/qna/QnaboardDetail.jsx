@@ -83,7 +83,7 @@ const QnaboardDetail = () => {
   };
 
   const handleSubmit = async ({ id }) => {
-    const response = await fetch(`http://api.oppspark.net:8088/free/${id}`, {
+    const response = await fetch(`http://api.oppspark.net:8088/qna/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -111,7 +111,7 @@ const QnaboardDetail = () => {
           case "qnaput_success":
             console.log(data.result);
             alert("게시글이 작성되었습니다.");
-            navigate("/freeboard");
+            navigate("/qnaboard");
             break;
           case "qnaput_fail":
             console.log(data.result);
@@ -158,7 +158,7 @@ const QnaboardDetail = () => {
           case "qnaput_success":
             console.log(data.result);
             alert("게시글이 작성되었습니다.");
-            navigate("/freeboard");
+            navigate("/qnaboard");
             break;
           case "qnaput_fail":
             console.log(data.result);
@@ -184,7 +184,7 @@ const QnaboardDetail = () => {
         <p>조회수: {view}</p>
 
         <Link to={`/qnaboard/edit/${id}`}>
-          <button type="button" className="post_edit">개시글 수정</button>
+          <button type="button" className="post_edit">게시글 수정</button>
         </Link>
       </div>
 

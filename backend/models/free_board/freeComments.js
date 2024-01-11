@@ -17,7 +17,7 @@ router.post("/free/:id/comment", (req, res) => {
     } else {
         const sql =
             "INSERT INTO freecomment (content, boardid, userid) VALUES(?, ?, ?)";
-        const params = [req.body.content, req.params.id, req.session.user.id];
+        const params = [req.body.content, req.params.ㅈ, req.session.user.id];
 
         connection.query(sql, params, (err, rows) => {
             if (err) {
