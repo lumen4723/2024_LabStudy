@@ -1,9 +1,5 @@
 /* Freeboard.css */
 
-body {
-    font-family: "Arial", sans-serif;
-}
-
 .freeboard {
     width: 100%;
     max-width: 1000px;
@@ -17,36 +13,30 @@ body {
     padding: 20px 0;
 }
 
-.post-list {
+.postfree-list {
     width: 80%;
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.post {
+.postfree {
     padding: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-.post:last-child {
+.postfree:last-child {
     border: none;
 }
 
-.post a {
+.postfree a {
     text-decoration: none;
     color: #007bff;
 }
 
-.post a:hover {
+.postfree a:hover {
     color: #0056b3;
-}
-
-div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .writebtn {
@@ -61,4 +51,10 @@ div {
 .writebtn:hover {
     background-color: #007bff;
     color: #fff;
+}
+
+.postfree {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
