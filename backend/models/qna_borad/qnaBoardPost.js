@@ -1,6 +1,12 @@
 const express = require('express');
-const { connect } = require('http2');
 const router = express.Router();
+
+const path = require("path");
+const mysql = require("mysql");
+const mainModulePath = path.dirname(require.main.filename);
+const dbconfig = require(path.resolve(mainModulePath, "../config/dbinfo.js"));
+const connection = mysql.createConnection(dbconfig);
+
 
 router.post("/qna", (req, res) => {
     if(!req.session.user){
@@ -21,7 +27,7 @@ router.post("/qna", (req, res) => {
                         return res.send({result: "qnapost_fail"});
                 }
             }
-            return res.send({result: "qnapost_success"});
+            return res.send({ result : "qna_success" });
         });
     }
 });
