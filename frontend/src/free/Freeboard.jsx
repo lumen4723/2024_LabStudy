@@ -32,13 +32,14 @@ const Freeboard = () => {
                 {posts.map((post) => (
                     <li className="postfree" key={post.id}>
                         <Link
-                            className="detailbtn"
+                            className="detailbtn title"
                             to={`/freeboard/${post.id}`}
                         >
                             {post.title}
                         </Link>
+                        
                         <Link
-                            className="detailbtn"
+                            className="detailbtn title2"
                             to={`/freeboard/${post.id}`}
                         >
                             {post.content}

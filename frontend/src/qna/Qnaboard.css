@@ -63,3 +63,17 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; /* 원하는 너비를 설정하세요 */
+}
+
+.title2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px; /* 원하는 너비를 설정하세요 */
+}
