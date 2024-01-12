@@ -17,6 +17,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
+            domain: ".718281.com",
             sameSite: false,
             httpOnly: true,
             secure: false,
