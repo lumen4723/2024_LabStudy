@@ -55,15 +55,16 @@
 }
 
 .qnaboarddetail textarea {
-    width: 100%;
+     width: 100%;
     height: 100px;
     margin-top: 20px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    resize: none; /* 크기 조정 비활성화 */
 }
 
-.qnaboarddetail .comment_post {
+.qnaboarddetail .comment_edit {
     display: inline-block;
     color: #fff;
     background-color: #007bff;
@@ -75,7 +76,7 @@
     cursor: pointer;
 }
 
-.qnaboarddetail .comment_post:hover {
+.qnaboarddetail .comment_edit:hover {
     background-color: #0056b3;
 }
 

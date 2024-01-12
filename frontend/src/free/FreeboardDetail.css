@@ -61,6 +61,7 @@
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
+    resize: none; /* 크기 조정 비활성화 */
 }
 
 .freeboarddetail .comment_post {
