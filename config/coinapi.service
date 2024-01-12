@@ -5,7 +5,7 @@ Description=coinapi Node.js Service
 ExecStart=/home/ubuntu/2024_LabStudy/backend/index.js
 Restart=always
 Group=nogroup
-WorkingDirectory=/home/minu/2024_LabStudy/backend
+WorkingDirectory=/home/ubuntu/2024_LabStudy/backend
 
 [Install]
 WantedBy=multi-user.target
