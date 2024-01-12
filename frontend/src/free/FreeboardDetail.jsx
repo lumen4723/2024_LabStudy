@@ -89,6 +89,7 @@ const FreeboardDetail = () => {
                         break;
                     case "fcompost_success":
                         alert("댓글이 작성되었습니다.");
+                        window.location.reload();
                         navigate(`/freeboard/${boardid}`);
                         break;
                     case "fcompost_fail":
