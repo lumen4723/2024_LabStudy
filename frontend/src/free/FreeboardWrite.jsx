@@ -9,7 +9,7 @@ const FreeboardWrite = () => {
     const navigate = useNavigate();
 
     const vaild_write = async () => {
-        await fetch("http://localhost:8088/vaildlogin", {
+        await fetch("http://api.718281.com:8088/vaildlogin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const FreeboardWrite = () => {
     }, []);
 
     const handleSubmit = async ({ title, content }) => {
-        await fetch("http://localhost:8088/free", {
+        await fetch("http://api.718281.com:8088/free", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

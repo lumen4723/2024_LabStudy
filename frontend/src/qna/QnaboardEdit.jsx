@@ -9,7 +9,7 @@ const QnaboardEdit = () => {
     const navigate = useNavigate();
 
     const editVaildCheck = async ({ boardid }) => {
-        await fetch(`http://localhost:8088/qna/${boardid}`, {
+        await fetch(`http://api.718281.com:8088/qna/${boardid}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const QnaboardEdit = () => {
     };
 
     const fetchPost = async ({ id }) => {
-        await fetch(`http://localhost:8088/qna/${id}`, {
+        await fetch(`http://api.718281.com:8088/qna/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -61,8 +61,8 @@ const QnaboardEdit = () => {
     }, [postid]);
 
     const handleSubmit = async ({ postid }) => {
-        console.log({postid})
-        await fetch(`http://localhost:8088/qna/${postid}`, {
+        console.log({ postid });
+        await fetch(`http://api.718281.com:8088/qna/${postid}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -107,13 +107,16 @@ const QnaboardEdit = () => {
     };
 
     const handlDelete = async ({ postid }) => {
-        const response = await fetch(`http://localhost:8088/qna/${postid}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-        })
+        const response = await fetch(
+            `http://api.718281.com:8088/qna/${postid}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }
+        )
             .then((res) => {
                 console.log("handDelete : " + postid);
                 return res.json();

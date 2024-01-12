@@ -6,7 +6,7 @@ const Freeboard = () => {
     const [posts, setPosts] = useState([]);
 
     const fetchPosts = async () => {
-        await fetch("http://localhost:8088/free", {
+        await fetch("http://api.718281.com:8088/free", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

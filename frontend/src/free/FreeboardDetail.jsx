@@ -17,7 +17,7 @@ const FreeboardDetail = () => {
     const { id: boardid } = useParams();
 
     const getfboard = async ({ id }) => {
-        await fetch(`http://localhost:8088/free/${id}`, {
+        await fetch(`http://api.718281.com:8088/free/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -37,7 +37,7 @@ const FreeboardDetail = () => {
     };
 
     const getcomment = async ({ id }) => {
-        await fetch(`http://localhost:8088/free/${id}/comment`, {
+        await fetch(`http://api.718281.com:8088/free/${id}/comment`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const FreeboardDetail = () => {
     }, [boardid]);
 
     const commentUpload = async ({ boardid, comment }) => {
-        await fetch(`http://localhost:8088/free/${boardid}/comment`, {
+        await fetch(`http://api.718281.com:8088/free/${boardid}/comment`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
