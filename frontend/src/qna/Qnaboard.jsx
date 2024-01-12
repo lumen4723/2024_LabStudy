@@ -47,7 +47,7 @@ const Qnaboard = () => {
                         {post.content}
                     </Link>
                     <span className="author">{post.userid}</span>
-                    <span className="created">{post.created}</span>
+                    <span className="created">{new Date(post.created).toLocaleDateString('ko-KR')} {new Date(post.created).toLocaleTimeString('ko-KR')}</span>
                     <span className="view">{post.view}</span>
                 </li>
                 ))}
