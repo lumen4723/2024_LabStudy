@@ -85,7 +85,6 @@ const QnaboardEdit = () => {
                         break;
                     case "qnaedit_success":
                         alert("게시글이 수정되었습니다.");
-                        window.location.reload();
                         navigate("/qnaboard");
                         break;
                     case "qnaedit_fail":
