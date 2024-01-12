@@ -180,7 +180,7 @@ const QnaboardDetail = () => {
         <h1>{title}</h1>
         <p>{content}</p>
         <p>작성자: {author}</p>
-        <p>작성 시간: {created}</p>
+        <p>작성 시간:{new Date(created).toLocaleDateString('ko-KR')} {new Date(created).toLocaleTimeString('ko-KR')}</p>
         <p>조회수: {view}</p>
 
         <Link to={`/qnaboard/edit/${id}`}>
@@ -215,7 +215,7 @@ const QnaboardDetail = () => {
         {comments.map((comment) => (
           <div key={comment.id}>
             <p>작성자: {comment.userid}</p>
-            <p>작성 시간: {comment.created}</p>
+            <p>작성 시간:{new Date(comment.created).toLocaleDateString('ko-KR')} {new Date(comment.created).toLocaleTimeString('ko-KR')}</p>
             <p>작성 내용{comment.content}</p>
             <hr></hr>
           </div>
