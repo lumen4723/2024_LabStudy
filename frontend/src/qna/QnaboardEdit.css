@@ -22,6 +22,7 @@
     background: transparent;
     font-size: 18px; /* 폰트 크기를 18px로 조정 */
     color: #555;
+    resize: none;
 }
 
 .qnaboardedit #content_edit {
