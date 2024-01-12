@@ -1,11 +1,13 @@
-.qnaboard {
+/* Freeboard.css */
+
+.freeboard {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.qnatitle {
+.freetitle {
     text-align: center;
     color: #333;
     padding: 20px 0;
@@ -18,29 +20,29 @@
     margin: 0;
 }
 
-.postqna {
+.postfree {
     padding: 10px;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
 }
 
-.postqna title {
+.post-list .title {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 200px; /* 길이*/
 }
 
-.postqna:last-child {
+.postfree:last-child {
     border: none;
 }
 
-.postqna a {
+.postfree a {
     text-decoration: none;
     color: #007bff;
 }
 
-.postqna a:hover {
+.postfree a:hover {
     color: #0056b3;
 }
 
@@ -68,12 +70,12 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 200px;
+    width: 200px; 
 }
 
 .title2 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 100px;
+    width: 100px; 
 }

@@ -30,11 +30,11 @@ const Qnaboard = () => {
     }, []);
 
     return (
-        <div className="qnaboard">
-            <h1 className="qnatitle">질문 게시글 목록</h1>
+        <div className="freeboard">
+            <h1 className="freetitle">질문 게시글 목록</h1>
             <ul className="post-list">
                 {posts.map((post) => (
-                    <li className="postqna" key={post.id}>
+                    <li className="postfree" key={post.id}>
                         <Link className="detailbtn title" to={`/qnaboard/${post.id}`}>
                             {post.title}
                         </Link>
