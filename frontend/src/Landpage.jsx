@@ -36,7 +36,7 @@ const MovingCoin = (props) => {
     return (
         <mesh
             {...props}
-            {...bind()} // bind the drag events
+            {...bind()}
             ref={meshRef}
             scale={props.isdrag ? 2 : 1}
             onClick={(event) => {
@@ -66,12 +66,6 @@ const StaticCoin = (props) => {
             ref={meshRef}
             scale={hovered ? 1.5 : 1}
             onClick={(event) => {
-                // props.setIsdrag(!props.isdrag);
-                // if (!props.isdrag) {
-                //     meshRef.current.rotation.x = Math.PI / 2;
-                //     meshRef.current.rotation.y = 0;
-                //     meshRef.current.rotation.z = 0;
-                // }
                 props.setColor(props.color);
             }}
             onPointerOver={(event) => setHover(true)}

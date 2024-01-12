@@ -21,14 +21,8 @@ router.get("/free/:id", (req, res) => {
 
     const id = [req.params.id];
 
-    connection.query(sql, id, (err, rows) => { 
-        if (err) {
-            return res(err);
-        }
+    connection.query(sql, id, (err, rows) => {
         connection.query(viewCountSQL, id, (err) => {
-            if (err) {
-                return res(err);
-            }
             return res.send(rows);
         });
     });

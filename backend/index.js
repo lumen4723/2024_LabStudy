@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const express = require("express");
 const app = express();
 const port = 8088;
@@ -17,6 +18,7 @@ app.use(
         resave: false,
         saveUninitialized: false,
         cookie: {
+            domain: ".718281.com",
             sameSite: false,
             httpOnly: true,
             secure: false,

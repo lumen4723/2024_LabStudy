@@ -9,7 +9,7 @@ const QnaboardEdit = () => {
     const navigate = useNavigate();
 
     const editVaildCheck = async ({ boardid }) => {
-        await fetch(`http://localhost:8088/qna/${boardid}`, {
+        await fetch(`http://api.718281.com:8088/qna/${boardid}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const QnaboardEdit = () => {
     };
 
     const fetchPost = async ({ id }) => {
-        await fetch(`http://localhost:8088/qna/${id}`, {
+        await fetch(`http://api.718281.com:8088/qna/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -43,7 +43,7 @@ const QnaboardEdit = () => {
             .then((res) => res.json())
             .then((data) => {
                 setTitle(data[0].title);
-                setContent(data[0].content);
+                setContent(data[0].question);
             })
             .catch((error) => {
                 console.error("게시글 정보를 불러오는 중 에러 발생:", error);
@@ -61,7 +61,8 @@ const QnaboardEdit = () => {
     }, [postid]);
 
     const handleSubmit = async ({ postid }) => {
-        await fetch(`http://localhost:8088/qna/${postid}`, {
+        console.log({ postid });
+        await fetch(`http://api.718281.com:8088/qna/${postid}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -82,11 +83,12 @@ const QnaboardEdit = () => {
                     case "data_too_long":
                         alert("내용이 너무 깁니다.");
                         break;
-                    case "qnaput_success":
+                    case "qnaedit_success":
                         alert("게시글이 수정되었습니다.");
+                        window.location.reload();
                         navigate("/qnaboard");
                         break;
-                    case "qnaput_fail":
+                    case "qnaedit_fail":
                         alert("게시글 수정에 실패했습니다.");
                         break;
                     case "no_authority":
@@ -105,13 +107,16 @@ const QnaboardEdit = () => {
     };
 
     const handlDelete = async ({ postid }) => {
-        const response = await fetch(`http://localhost:8088/qna/${postid}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            credentials: "include",
-        })
+        const response = await fetch(
+            `http://api.718281.com:8088/qna/${postid}`,
+            {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }
+        )
             .then((res) => {
                 console.log("handDelete : " + postid);
                 return res.json();
@@ -126,11 +131,11 @@ const QnaboardEdit = () => {
                         console.log(data.result);
                         alert("삭제 권한이 없습니다.");
                         break;
-                    case "qnadel_fail":
+                    case "qnadelete_fail":
                         console.log(data.result);
                         alert("삭제에 실패했습니다.");
                         break;
-                    case "qnadel_success":
+                    case "qnadelete_success":
                         console.log(data.result);
                         alert("삭제되었습니다.");
                         navigate("/qnaboard");

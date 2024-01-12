@@ -8,7 +8,7 @@ const Login = ({ setIsloggedin }) => {
     const navigate = useNavigate();
 
     const handleLogin = () => {
-        fetch("http://localhost:8088/login", {
+        fetch("http://api.718281.com:8088/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

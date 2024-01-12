@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const path = require("path");
@@ -22,16 +22,10 @@ router.get("/qna/:id", (req, res) => {
     const id = [req.params.id];
 
     connection.query(sql, id, (err, rows) => {
-        if (err){
-            return res(err);
-        }
         connection.query(viewCountSQL, id, (err) => {
-            if (err){
-                return res(err);q
-            }
             return res.send(rows);
         });
     });
-}); 
+});
 
 module.exports = router;

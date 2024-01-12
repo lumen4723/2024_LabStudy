@@ -26,8 +26,9 @@ router.post("/free", (req, res) => {
                     default:
                         return res.send({ result: "freepost_fail" });
                 }
+            } else {
+                return res.send({ result: "freepost_success" });
             }
-            return res.send({ result: "freepost_success" });
         });
     }
 });
@@ -74,9 +75,9 @@ router.put("/free/:id", (req, res) => {
                             default:
                                 return res.send({ result: "freeput_fail" });
                         }
+                    } else {
+                        return res.send({ result: "freeput_success" });
                     }
-
-                    return res.send({ result: "freeput_success" });
                 });
             }
         });
@@ -100,9 +101,9 @@ router.delete("/free/:id", (req, res) => {
                 connection.query(sql2, params2, (err, rows) => {
                     if (err) {
                         return res.send({ result: "freedel_fail" });
+                    } else {
+                        return res.send({ result: "freedel_success" });
                     }
-
-                    return res.send({ result: "freedel_success" });
                 });
             }
         });
