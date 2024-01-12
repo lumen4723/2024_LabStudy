@@ -32,19 +32,20 @@ const Freeboard = () => {
                 {posts.map((post) => (
                     <li className="postfree" key={post.id}>
                         <Link
-                            className="detailbtn"
+                            className="detailbtn title"
                             to={`/freeboard/${post.id}`}
                         >
                             {post.title}
                         </Link>
+                        
                         <Link
-                            className="detailbtn"
+                            className="detailbtn title2"
                             to={`/freeboard/${post.id}`}
                         >
                             {post.content}
                         </Link>
                         <span className="author">{post.userid}</span>
-                        <span className="created">{post.created}</span>
+                        <span className="created">{new Date(post.created).toLocaleDateString('ko-KR')} {new Date(post.created).toLocaleTimeString('ko-KR')}</span>
                         <span className="view">{post.view}</span>
                     </li>
                 ))}

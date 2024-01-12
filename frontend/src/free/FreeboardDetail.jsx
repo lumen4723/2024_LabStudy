@@ -117,7 +117,8 @@ const FreeboardDetail = () => {
                 <p>{content}</p>
                 <hr />
                 <p>작성자: {author}</p>
-                <p>작성 시간: {created}</p>
+                <p>작성 시간:{new Date(created).toLocaleDateString('ko-KR')} {new Date(created).toLocaleTimeString('ko-KR')}</p>
+                
                 <p>조회수: {view}</p>
 
                 <Link className="post_edit" to={`/freeboard/edit/${boardid}`}>
@@ -149,7 +150,10 @@ const FreeboardDetail = () => {
                 {comments.map((comm) => (
                     <div className="freeComment" key={comm.id}>
                         <p>작성자: {comm.userid}</p>
-                        <p>작성 시간: {comm.created}</p>
+
+                       
+                        
+                        <p>작성 시간: {new Date(comm.created).toLocaleDateString('ko-KR')} {new Date(comm.created).toLocaleTimeString('ko-KR')}</p>
                         <p>작성 내용: {comm.content}</p>
                         <hr />
                     </div>

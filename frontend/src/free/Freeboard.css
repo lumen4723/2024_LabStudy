@@ -26,6 +26,13 @@
     border-bottom: 1px solid #ddd;
 }
 
+.post-list .title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; /* 길이*/
+}
+
 .postfree:last-child {
     border: none;
 }
@@ -57,4 +64,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; 
+}
+
+.title2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100px; 
 }

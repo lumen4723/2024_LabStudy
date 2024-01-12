@@ -4,57 +4,70 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
-    max-width: 600px; /* 원하는 최대 너비를 지정 */
-    margin: 0 auto; /* 레이아웃을 페이지 중앙에 배치 */
+    height: 100%;
     padding: 20px;
+    box-sizing: border-box; /* 추가: 박스 크기 계산 방식 변경 */
+    background: white; /* 배경색을 흰색으로 변경 */
 }
 
 .qnaboardedit #title_txt,
 .qnaboardedit #content_edit {
-    width: 100%;
+    width: 70%; /* 너비를 70%로 조정 */
     padding: 10px;
     margin-bottom: 20px;
-    border-radius: 5px; /* 텍스트 상자의 모서리를 둥글게 */
-    border: 1px solid #ddd; /* 테두리 색상 지정 */
-    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #888;
+    background: transparent;
+    font-size: 18px; /* 폰트 크기를 18px로 조정 */
+    color: #555;
 }
 
 .qnaboardedit #content_edit {
-    height: 200px; /* textarea 높이 지정 */
+    height: 400px; /* 높이를 400px로 조정 */
+    padding: 20px; /* 패딩을 20px로 조정 */
+    border: 1px solid #ddd; /* 테두리 스타일 조정 */
+    border-radius: 10px; /* 테두리 둥글게 조정 */
+    background: #fff; /* 배경색을 흰색으로 조정 */
+    font-size: 16px; /* 폰트 크기를 16px로 조정 */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
 }
 
-.qnaboardedit .button_container {
+.freeboardedit .button_container {
     display: flex;
-    justify-content: flex-end; /* 버튼 간격 조정 */
+    justify-content: space-between; /* 버튼 간격 조정 */
     flex-direction: row;
-    width: 100%;
+    width: 23%;
 }
 
 .qnaboardedit .post_edit,
 .qnaboardedit .post_del {
     width: 100px; /* 버튼 너비 조정 */
-    padding: 10px;
-    color: white; /* 텍스트 색상 */
+    padding: 15px;
+    color: #000;
     border: none;
-    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    border-radius: 30px; /* 버튼 모서리 둥글게 */
     cursor: pointer; /* 마우스를 버튼 위에 올렸을 때 커서 모양 변경 */
     font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
     margin-left: 5px; /* 버튼 간격 조정 */
 }
 
 .qnaboardedit .post_edit {
-    background-color: #007bff; /* 수정 버튼 배경 색상 */
+    background-color: #4CAF50; /* 수정 버튼 배경 색상 */
 }
 
 .qnaboardedit .post_edit:hover {
-    background-color: #0056b3; /* 마우스를 수정 버튼 위에 올렸을 때 배경 색상 변경 */
+    background-color: #3a823c; /* 마우스를 수정 버튼 위에 올렸을 때 배경 색상 변경 */
 }
 
 .qnaboardedit .post_del {
-    background-color: #dc3545; /* 삭제 버튼 배경 색상 */
+    background-color: #ff6b6b; /* 삭제 버튼 배경 색상 */
 }
 
 .qnaboardedit .post_del:hover {
-    background-color: #c82333; /* 마우스를 삭제 버튼 위에 올렸을 때 배경 색상 변경 */
+    background-color: #fa5252; /* 마우스를 삭제 버튼 위에 올렸을 때 배경 색상 변경 */
 }
