@@ -1,38 +1,74 @@
-.SignUpContainer {
+.SignupContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     width: 300px;
     padding: 16px;
     background-color: white;
-    border: 1px solid #f0f0f0;
-    border-radius: 8px;
     margin: 0 auto;
     margin-top: 50px;
-}
-
-.SignUpContainer label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-
-.SignUpContainer input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  
+  .Signupform-container {
+    width: 100%; /* 너비를 100%로 설정해 부모에 맞춤 */
+    padding: 16px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* padding과 border를 너비에 포함 */
+  }
+  
+  .signlabel {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+  }
+  
+  .signinput {
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-.SignUpContainer button {
+  }
+  
+  .Signbutton-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
     width: 100%;
+  }
+  
+  .signbutton {
+    padding: 8px 16px;
     background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+    color: #ffffff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
-
-.SignUpContainer button:hover {
-    opacity: 0.8;
-}
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%; /* 버튼의 너비를 부모에 맞추고, box-sizing 적용 */
+  }
+  
+  .login-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 16px;
+  }
+  
+  .login-link-text {
+    margin-right: 8px;
+  }
+  
+  .login-link {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+  

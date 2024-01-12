@@ -43,7 +43,7 @@ const Login = ({ setIsloggedin }) => {
     };
 
     return (
-        <div className="LoginContainer">
+        <div className="Logincontainer">
             <h1 className="title">회원 로그인</h1>
             <div className="form-container">
                 <label className="label">
@@ -64,11 +64,11 @@ const Login = ({ setIsloggedin }) => {
                         className="input"
                     />
                 </label>
-                <div className="button-container">
+                <div className="Loginbutton-container">
                     <button
                         type="button"
                         onClick={() => handleLogin()}
-                        className="button"
+                        className="Loginbutton"
                     >
                         로그인
                     </button>

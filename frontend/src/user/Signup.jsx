@@ -1,6 +1,6 @@
 import "./Signup.css";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [id, setId] = useState("");
@@ -46,29 +46,43 @@ const Signup = () => {
     };
 
     return (
-        <div className="SignUpContainer">
-            <label>ID: </label>
+        <div className="SignupContainer">
+            <h1 className="title">회원가입</h1>
+            <div className="Signupform-container">
+                <label  className="signlabel">ID: 
+                    <input
+                        className="signinput"
+                        type="text"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                    />
+                </label>
+            <label className="signlabel">UserName: 
             <input
-                type="text"
-                value={id}
-                onChange={(e) => setId(e.target.value)}
-            />
-
-            <label>Username: </label>
-            <input
+                className="signinput"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
-
-            <label>Password: </label>
+            </label>
+            <label className="signlabel">PW:
             <input
+                className="signinput"
                 type="password"
                 value={pw}
                 onChange={(e) => setPw(e.target.value)}
             />
-
-            <button onClick={() => handleSignup()}>회원가입</button>
+            </label>
+            <div className="Signbutton-container">
+            <button className="signbutton" onClick={() => handleSignup()}>회원가입</button>
+            </div>
+            <div className="login-link-container">
+                    <span className="login-link-text">이미 회원이신가요?</span>
+                    <Link to="/login" className="login-link">
+                        로그인 하기
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 };
