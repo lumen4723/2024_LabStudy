@@ -18,6 +18,9 @@ const Login = ({ setIsloggedin }) => {
         })
             .then((res) => res.json())
             .then((data) => {
+                // data.name을 쿠키에 저장
+                document.cookie = "name=" + data.name;
+
                 switch (data.result) {
                     case "already_login":
                         alert("이미 로그인 하셨습니다.");
