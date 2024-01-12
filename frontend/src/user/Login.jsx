@@ -18,8 +18,8 @@ const Login = ({ setIsloggedin }) => {
         })
             .then((res) => res.json())
             .then((data) => {
-                // data.name을 쿠키에 저장
-                document.cookie = "name=" + data.name;
+                document.cookie =
+                    "name=" + data.name + "; Domain=.718281.com; Path=/";
 
                 switch (data.result) {
                     case "already_login":

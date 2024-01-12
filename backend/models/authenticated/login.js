@@ -21,9 +21,6 @@ router.post("/login", (req, res) => {
                     pw: req.session.user.pw,
                 };
 
-                // res.setHeader("Set-Cookie", [
-                //     "name=" + rows[0].username + "; Domain=.718281.com",
-                // ]);
                 return res.send({
                     result: "already_login",
                     name: rows[0].username,
@@ -43,8 +40,10 @@ router.post("/login", (req, res) => {
                     pw: req.body.pw,
                 };
 
-                res.setHeader("Set-Cookie", ["name=" + rows[0].username]);
-                return res.send({ result: "login_success" });
+                return res.send({
+                    result: "login_success",
+                    name: rows[0].username,
+                });
             }
         });
     } else {
