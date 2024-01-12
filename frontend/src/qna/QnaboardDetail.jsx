@@ -68,16 +68,6 @@ const QnaboardDetail = () => {
     const commentUpload = async ({ boardid, comment }) => {
         console.log("보내는 값:", { boardid, comment });
 
-<<<<<<< HEAD
-  return (
-    <div className="qnaboarddetail">
-      <div>
-        <h1>{title}</h1>
-        <p>{content}</p>
-        <p>작성자: {author}</p>
-        <p>작성 시간:{new Date(created).toLocaleDateString('ko-KR')} {new Date(created).toLocaleTimeString('ko-KR')}</p>
-        <p>조회수: {view}</p>
-=======
         await fetch(`http://api.718281.com:8088/qna/${boardid}/answer`, {
             method: "POST",
             headers: {
@@ -107,7 +97,6 @@ const QnaboardDetail = () => {
                 console.error("댓글 업로드 중 에러 발생:", error);
             });
     };
->>>>>>> dev
 
     return (
         <div className="qnaboarddetail">
@@ -125,35 +114,6 @@ const QnaboardDetail = () => {
                 </Link>
             </div>
 
-<<<<<<< HEAD
-      <textarea
-        id="comment_txt"
-        name="comment"
-        onChange={(e) => setContentComment()}
-      >
-      </textarea>
-
-      <div className="comment_edit">
-  {commentCount < 1 ? (
-    <button onClick={commentUpload}> 답변 작성 </button>
-  ) : (
-    <p>답변은 한 개까지만 작성 가능합니다.</p>
-  )}
-</div>
-
-
-      <hr></hr>
-
-      <h3>ANSWER</h3>
-
-      <div className = "qnaComment">
-        {comments.map((comment) => (
-          <div key={comment.id}>
-            <p>작성자: {comment.userid}</p>
-            <p>작성 시간:{new Date(comment.created).toLocaleDateString('ko-KR')} {new Date(comment.created).toLocaleTimeString('ko-KR')}</p>
-            <p>작성 내용{comment.content}</p>
-=======
->>>>>>> dev
             <hr></hr>
             {comments.length === 0 && (
                 <>
