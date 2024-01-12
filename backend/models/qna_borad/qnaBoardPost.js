@@ -70,19 +70,10 @@ router.put("/qna/:id", (req, res) => {
             } else {
                 const sql2 = "UPDATE qnaboard SET question = ? WHERE id = ? AND userid = ?";
                 const params2 = [req.body.content, req.params.id];
-
                 connection.query(sql2, params2, (err, rows) => {
-                    if (err) {
-                        switch (err.code) {
-                            case "ER_DATA_TOO_LONG":
-                                return res.send({ result: "data_too_long" });
 
-                            default:
-                                return res.send({ result: "qnaedit_fail" });
-                        }
-                    } else {
-                        return res.send({ result: "qnaedit_success" });
-                    }
+                    return res.send({ result: "qnaedit_success" });
+
                 });
             }
         });
