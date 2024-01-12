@@ -85,7 +85,7 @@ const QnaboardDetail = () => {
                         break;
                     case "qna_success":
                         alert("답변이 등록되었습니다.");
-                        location.reload();
+                        window.location.reload();
                         navigate(`/qnaboard/${boardid}`);
                         break;
                     default:
