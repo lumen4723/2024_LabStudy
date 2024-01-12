@@ -85,7 +85,7 @@ const QnaboardDetail = () => {
             break;
           case "qna_success":
             alert("답변이 등록되었습니다.");
-            navigate(`/qnaboard/detail/${boardid}`);
+            navigate(`/qnaboard/${boardid}`);
             break;
           default:
             alert("알 수 없는 에러가 발생했습니다.");

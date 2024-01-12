@@ -20,9 +20,7 @@ const QnaboardWrite = () => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.result === "already_login") {
-                    console.log(data.result);
                 } else {
-                    console.log(data.result);
                     alert("로그인을 하고 작성하세요.");
                     navigate("/qnaboard");
                 }
@@ -51,11 +49,11 @@ const QnaboardWrite = () => {
             .then((data) => {
                 switch (data.result) {
                     case "no_session":
-                        console.log(data.result);
+
                         alert("로그인을 하고 작성하세요.");
+                        navigate("/login");
                         break;
                     case "invaild_value":
-                        console.log(data.result);
                         alert("타이틀 또는 내용을 입력하세요.");
                         break;
                     case "data_too_long":
@@ -70,6 +68,7 @@ const QnaboardWrite = () => {
                     case "qna_fail":
                         console.log(data.result);
                         alert("게시글 작성에 실패했습니다.");
+                        navigate("/qnaboard");
                         break;
                     default:
                         console.log(data.result);

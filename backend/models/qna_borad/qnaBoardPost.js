@@ -33,6 +33,28 @@ router.post("/qna", (req, res) => {
     }
 });
 
+router.post("/qna/:id", (req, res) => {
+    if (req.session.user) {
+        const sql = "SELECT * FROM qnaboard WHERE id = ? AND userid = ?";
+        const params = [req.params.id, req.session.user.id];
+
+        connection.query(sql, params, (err, rows) => {
+            if (!rows || rows.length == 0) {
+                return res.send({ result: "no_authority" });
+            } else {
+                return res.send({ result: "edit_vaild" });
+            }
+        });
+    } else {
+        return res.send({ result: "no_session" });
+    }
+})
+
+
+
+
+
+
 router.put("/qna/:id", (req, res) => {
     if (!req.session.user) {
         return res.send({ result: "no_session" });
