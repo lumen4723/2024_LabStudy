@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Cookies from "js-cookie";
 
 import Landpage from "./Landpage";
 
@@ -26,7 +27,9 @@ import NotFound from "./lib/NotFound";
 import "./App.css";
 
 const App = () => {
-    const [isloggedin, setIsloggedin] = useState(false);
+    const [isloggedin, setIsloggedin] = useState(
+        Cookies.get("name") ? true : false
+    );
 
     return (
         <div className="App">
