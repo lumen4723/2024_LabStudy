@@ -25,9 +25,7 @@
 - 안제혁 : Frontend 개발
 
 # 개발 환경
-
-![이미지 2024  3  3  16 59](https://github.com/lumen4723/2024_LabStudy/assets/137988657/504f1ea5-8f73-46af-8882-5b884408f7b1)
-
+![LabStudy](https://github.com/lumen4723/2024_LabStudy/assets/114812091/554f98f2-1655-4bc5-8d0c-c04663636d50)
 
 ## 개발 도구
 - OS : Ubuntu, MacOS, Windows10
