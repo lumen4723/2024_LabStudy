@@ -26,6 +26,9 @@
 
 # 개발 환경
 
+![이미지 2024  3  3  16 59](https://github.com/lumen4723/2024_LabStudy/assets/137988657/504f1ea5-8f73-46af-8882-5b884408f7b1)
+
+
 ## 개발 도구
 - OS : Ubuntu, MacOS, Windows10
 - Runtime : nodeJS
